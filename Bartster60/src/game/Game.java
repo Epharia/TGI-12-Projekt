@@ -3,11 +3,18 @@ package game;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
+import game.init.States;
+import game.init.Tiles;
+import game.state.State;
+
 public class Game implements Runnable {
 
 	//Constants
 	public static final int FPS = 144;
 	public static final int TPS = 128;
+	
+	public static final String NAME = "Game";
+	public static final String VERSION = "Alpha-0.0.1";
 	
 	//Attributes
 	private boolean running;
@@ -20,10 +27,13 @@ public class Game implements Runnable {
 	}
 	
 	private void init() {
+		Tiles.init();
 		handler.init();
+		States.init();
 	}
 	
 	private void postInit() {
+		State.setState(States.game);
 		handler.getScreen().setVisible(true);
 	}
 	
@@ -49,13 +59,15 @@ public class Game implements Runnable {
 		Graphics g = bs.getDrawGraphics();
 		g.clearRect(0, 0, handler.getScreen().getWidth(), handler.getScreen().getHeight());
 		
-		
+		State.getCurrentState().render(g);
 		
 		g.dispose();
 		bs.show();
 	}
 	
-	public void tick() {}
+	public void tick() {
+		State.getCurrentState().tick();
+	}
 	
 	//Thread
 	@Override
@@ -71,9 +83,11 @@ public class Game implements Runnable {
 		double deltaT=0;
 		
 		//init
+		System.out.print("Init...");
 		preInit();
 		init();
 		postInit();
+		System.out.println(" done!");
 		
 		while(running) {
 			
