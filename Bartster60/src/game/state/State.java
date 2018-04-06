@@ -9,10 +9,12 @@ public abstract class State {
 	public abstract void render(Graphics g);
 	public abstract void tick();
 	
+	//SETTER
 	public static void setState(State stateIn) {
 		currentState=stateIn;
 	}
 	
+	//GETTER
 	public static State getCurrentState() {
 		return currentState;
 	}

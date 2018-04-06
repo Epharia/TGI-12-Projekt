@@ -3,6 +3,7 @@ package game.state;
 import java.awt.Graphics;
 
 import game.Game;
+import game.input.Input;
 
 public class StateGame extends State{
 
@@ -13,7 +14,8 @@ public class StateGame extends State{
 
 	@Override
 	public void tick() {
-		
+		Game.getHandler().getWorld().tick();
+		Input.tick();
 	}
 
 }
