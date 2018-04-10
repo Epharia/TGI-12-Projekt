@@ -4,23 +4,23 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
+import game.util.math.Area2D;
 import game.util.math.Pos2D;
 
 public abstract class Entity {
 
 	//DEFAULTS
-	protected static final int DEFAULT_HEALTH = 2; 	//TEMP test value
+	protected static final int DEFAULT_HEALTH = 2;
 	
 	//Attributes
 	protected boolean isDead;
 	protected boolean isAirborn;
 	protected int health = DEFAULT_HEALTH;
 	protected BufferedImage texture;
-	protected Pos2D pos;
+	protected Pos2D pos = new Pos2D();
+	protected Area2D AABB = new Area2D();
 	
 	protected Random rand = new Random();
-	
-	public Entity() {}
 	
 	public abstract void render(Graphics g);
 	public abstract void tick();
@@ -35,13 +35,16 @@ public abstract class Entity {
 	}
 	
 	public void setPos(double x, double y) {
-		this.pos.setPos(x, y);
+		this.pos.set(x, y);
 	}
 	
-	public void setPos(Pos2D pos) {
-		setPos(pos.getX(), pos.getY());
+	public void setPos(Pos2D newPos) {
+		setPos(newPos.getX(), newPos.getY());
 	}
-	
+
+	public void setAABB(Area2D AABB) {
+		this.AABB = AABB;
+	}
 	
 	//GETTER
 	public boolean isDead() {
@@ -62,6 +65,10 @@ public abstract class Entity {
 	
 	public double getPosY() {
 		return this.pos.getY();
+	}
+	
+	public Area2D getAABB() {
+		return AABB;
 	}
 
 	public BufferedImage getTexture() {

@@ -35,17 +35,17 @@ public class Pos2D {
 	}
 	
 	//SETTER
-	public void setPos(double x, double y) {
+	public void set(double x, double y) {
 		this.x=x;
 		this.y=y;
 	}
 	
 	public void setPos(int a) {
-		this.setPos(a,a);
+		this.set(a,a);
 	}
 	
 	public void setPos(Pos2D pos) {
-		this.setPos(pos.getX(),pos.getY());
+		this.set(pos.getX(),pos.getY());
 	}
 	
 	public void setX(double x) {

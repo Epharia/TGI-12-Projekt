@@ -2,20 +2,21 @@ package game.entity.player;
 
 import java.awt.Graphics;
 
+import game.Game;
 import game.entity.EntityLiving;
 import game.util.ImageLoader;
-import game.util.math.Pos2D;
 
 public class EntityPlayer extends EntityLiving {
 	
 	public EntityPlayer() {
-		isAirborn=true;
-		this.pos = new Pos2D(3,5);
+		this.pos.set(0.5, 12);
+		this.AABB.setBounds(0.125, 0.9375, 0.75, 1);
 		this.texture = ImageLoader.load("/assets/textures/creatures/player.png");
 	}
 	
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(texture, (int) (pos.getX()*32), (int) (pos.getY()*32), 32, 32, null);
+//		g.fillRect((int) ((pos.getX()+AABB.getX())*Game.TILESCALE-Game.getHandler().getCamera().getxOffset()), (int) ((pos.getY()+AABB.getY())*Game.TILESCALE-Game.getHandler().getCamera().getyOffset()), (int) (AABB.getWidth()*Game.TILESCALE), (int) (AABB.getHeight()*Game.TILESCALE)); //RENDER AABB
+		g.drawImage(texture, (int) (pos.getX()*Game.TILESCALE-Game.getHandler().getCamera().getxOffset()), (int) (pos.getY()*Game.TILESCALE-Game.getHandler().getCamera().getyOffset()), Game.TILESCALE, Game.TILESCALE*2, null);
 	}
 }

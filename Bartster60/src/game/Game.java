@@ -11,10 +11,12 @@ public class Game implements Runnable {
 
 	//Constants
 	public static final int FPS = 144;
-	public static final int TPS = 128;
+	public static final int TPS = 144;
+	
+	public static final int TILESCALE = 16*3; //texture width * 3
 	
 	public static final String NAME = "Game";
-	public static final String VERSION = "Alpha-0.0.1";
+	public static final String VERSION = "Alpha-0.0.3";
 	
 	//Attributes
 	private boolean running;

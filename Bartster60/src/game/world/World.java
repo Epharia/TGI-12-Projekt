@@ -10,17 +10,21 @@ import game.tile.Tile;
 
 public class World {
 	
-	protected final int width, height;
+	public final int WIDTH, HEIGHT;
+	public final double GRAVITATION;
 	
 	protected BufferedImage background;
-	protected Tile[][] world_tiles;
+	protected Tile[][] world_tiles0; //LAYER 0
+	protected Tile[][] world_tiles1; //LAYER 1 (Overlay)
 	
 	protected EntityManager entities;
 	
-	public World(int width, int height) {
-		this.width = width;
-		this.height = height;
-		world_tiles = new Tile[width][height];
+	public World(int width, int height, double gravitation) {
+		this.WIDTH = width;
+		this.HEIGHT = height;
+		this.GRAVITATION = gravitation;
+		world_tiles0 = new Tile[width][height];
+		world_tiles1 = new Tile[width][height];
 		
 		entities = new EntityManager();
 		
@@ -36,24 +40,39 @@ public class World {
 			}
 		}
 		
-		for(int i=0; i<height; i++) {
-			for(int j=0; j<width; j++) {
-				world_tiles[j][i] = Tiles.dirt;
+		for(int i=0; i<HEIGHT; i++) {
+			for(int j=0; j<WIDTH; j++) {
+				world_tiles0[j][i] = Tiles.dirt;
 			}
 		}
 		
+		for(int i=0; i<WIDTH; i++) {
+			if(i==10) continue;
+			world_tiles1[i][15] = Tiles.grass;
+			world_tiles1[i][14] = Tiles.grass_2;
+		}
+		
 		for(int i=0; i<15; i++) {
-			for(int j=0; j<width; j++) {
-				world_tiles[j][i] = Tiles.air;
+			for(int j=0; j<WIDTH; j++) {
+				world_tiles0[j][i] = Tiles.air;
 			}
 		}
+		
+		world_tiles0[10][14] = Tiles.dirt;
+		world_tiles1[10][14] = Tiles.grass;
+		world_tiles1[10][13] = Tiles.grass_2;
+		
+		world_tiles0[12][11] = Tiles.dirt;
 	}
 	
 	public void render(Graphics g) {
 		g.drawImage(background, 0, 0, null);
-		for(int i=0; i<height; i++) {
-			for(int j=0; j<width; j++) {
-				g.drawImage(world_tiles[j][i].getTexture(), j*32, i*32, 32, 32, null);
+		for(int i=0; i<HEIGHT; i++) {
+			for(int j=0; j<WIDTH; j++) {
+				if(world_tiles0[j][i]!=null)
+					g.drawImage(world_tiles0[j][i].getTexture(), (int) (j*Game.TILESCALE-Game.getHandler().getCamera().getxOffset()), (int) (i*Game.TILESCALE-Game.getHandler().getCamera().getyOffset()), Game.TILESCALE, Game.TILESCALE, null);
+				if(world_tiles1[j][i]!=null)
+					g.drawImage(world_tiles1[j][i].getTexture(), (int) (j*Game.TILESCALE-Game.getHandler().getCamera().getxOffset()), (int) (i*Game.TILESCALE-Game.getHandler().getCamera().getyOffset()), Game.TILESCALE, Game.TILESCALE, null);
 			}
 		}
 		entities.render(g);
@@ -61,10 +80,12 @@ public class World {
 
 	public void tick() {
 		entities.tick();
+		Game.getHandler().getCamera().centerOnEntity(entities.getPlayer());
+		Game.getHandler().getCamera().checkLimit();
 	}
 	
 	public Tile getTileAt(int x, int y) {
-		return world_tiles[x][y];
+		return world_tiles0[x][y];
 	}
 
 	public EntityManager getEntities() {
