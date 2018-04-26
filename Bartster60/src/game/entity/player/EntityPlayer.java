@@ -9,8 +9,8 @@ import game.util.ImageLoader;
 public class EntityPlayer extends EntityLiving {
 	
 	public EntityPlayer() {
-		this.pos.set(0.5, 12);
-		this.AABB.setBounds(0.125, 0.9375, 0.75, 1);
+		this.pos.set(0.5, 10);
+		this.AABB.setBounds(0.125, 0, 0.745, 1.937);
 		this.texture = ImageLoader.load("/assets/textures/creatures/player.png");
 	}
 	

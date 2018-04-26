@@ -70,6 +70,10 @@ public abstract class Entity {
 	public Area2D getAABB() {
 		return AABB;
 	}
+	
+	public Area2D getCollisionBounds(double xOffset, double yOffset) {
+		return new Area2D((pos.getX() + getAABB().getX()) + xOffset, (pos.getY() + getAABB().getY()) + yOffset, getAABB().getWidth(), getAABB().getHeight());
+	}
 
 	public BufferedImage getTexture() {
 		return texture;

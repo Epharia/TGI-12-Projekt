@@ -3,12 +3,14 @@ package game.tile;
 import java.awt.image.BufferedImage;
 
 import game.util.ImageLoader;
+import game.util.math.Area2D;
 
 public class Tile {
 	
 	protected String name;
 	protected BufferedImage texture;
 	protected boolean isSolid;
+	protected Area2D AABB = new Area2D(0,0,1,1);
 	
 	
 	public Tile() {}
@@ -56,4 +58,11 @@ public class Tile {
 		return isSolid;
 	}
 	
+	public Area2D getAABB() {
+		return AABB;
+	}
+	
+	public Area2D getCollisionBounds() {
+		return new Area2D(getAABB().getX(), getAABB().getY(), getAABB().getWidth(), getAABB().getHeight());
+	}
 }

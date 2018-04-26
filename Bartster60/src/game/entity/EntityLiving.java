@@ -3,12 +3,13 @@ package game.entity;
 import java.awt.Graphics;
 
 import game.Game;
+import game.world.World;
 
-public class EntityLiving extends Entity { //TODO improve movement REWORK Tile collision (fix collision for AABB > 1)
+public class EntityLiving extends Entity {
 
 	//DEFAULTS
 	public static final double DEFAULT_SPEED = 1;
-	public static final double DEFAULT_JUMP_POWER=5;
+	public static final double DEFAULT_JUMP_POWER=4;
 	
 	//ATTRIBUTES
 	protected double speed = DEFAULT_SPEED;
@@ -26,31 +27,72 @@ public class EntityLiving extends Entity { //TODO improve movement REWORK Tile c
 	}
 	
 	public void moveY() {
-		isAirborn=true;
+		isAirborn = true;
 		
-		if(momentumY>0)
-		for(double i=0; i<momentumY;i+=0.01) {
-			if  (!Game.getHandler().getWorld().getTileAt((int) (getPosX()+getAABB().getX()), (int) (getPosY()+getAABB().getY()+getAABB().getHeight()+(momentumY-i)/momentumModifier)).isSolid() && !Game.getHandler().getWorld().getTileAt((int)(getPosX()+getAABB().getX()+getAABB().getWidth()), (int) (getPosY()+getAABB().getY()+getAABB().getHeight()+(momentumY-i)/momentumModifier)).isSolid()) {
-				momentumY-=i;
-				break;
-			}
-			isAirborn=false;
+		if (momentumY<Game.getHandler().getWorld().GRAVITATION) //NOTE Maybe Change (f.ex. MAX_GRAVITATION_SPEED)
+			momentumY+=Game.getHandler().getWorld().GRAVITATION/100;
+		
+		if(momentumY<0 && getPosY()<0) {
+			momentumY=0;
+			return;
+		} else if(momentumY>0 && getPosY()>Game.getHandler().getWorld().HEIGHT-1) {
+			momentumY=0;
+			return;
 		}
 		
-		if(isAirborn) {
-			if (momentumY<Game.getHandler().getWorld().GRAVITATION) //NOTE Maybe Change (f.ex. MAX_SPEED_G)
-				momentumY+=Game.getHandler().getWorld().GRAVITATION/100;
-			
-			if(momentumY<0) {
-				for(double i=0; i<-momentumY;i+=0.01) {
-					if (!Game.getHandler().getWorld().getTileAt((int) (getPosX()+getAABB().getX()), (int) (getPosY()+getAABB().getY()+(momentumY+i)/momentumModifier)).isSolid() && !Game.getHandler().getWorld().getTileAt((int)(getPosX()+getAABB().getX()+getAABB().getWidth()), (int) (getPosY()+getAABB().getY()+(momentumY+i)/momentumModifier)).isSolid() && getPosY()+momentumY/momentumModifier>0) {
-						pos.setY(getPosY()+(momentumY+i)/momentumModifier);
-						break;
+		if(isTileCollision(0, momentumY/momentumModifier)) {
+			if(momentumY>0) {
+				for(double i=0; i<momentumY; i+=0.01) {
+					if(!isTileCollision(0, (momentumY-i)/momentumModifier)) {
+						pos.setY(getPosY()+(momentumY-i)/momentumModifier);
+						momentumY=0;
+						isAirborn=false;
+						return;
 					}
-					momentumY=0;
 				}
-			} else pos.setY(getPosY()+momentumY/momentumModifier);
+				isAirborn=false;
+			} else if(momentumY<0) {
+				for(double i=0; i<-momentumY; i+=0.01) {
+					if(!isTileCollision(0, (momentumY+i)/momentumModifier)) {
+						pos.setY(getPosY()+(momentumY+i)/momentumModifier);
+						momentumY=0;
+						return;
+					}
+				}
+			}
+			momentumY=0;
+			return;
 		}
+		
+		pos.setY(getPosY()+momentumY/momentumModifier);
+	}
+	
+	private boolean isTileCollision(double xOffset, double yOffset) {
+		World w = Game.getHandler().getWorld();
+		
+		int x1 = (int) (getPosX()+getAABB().getX()+xOffset-1); //LEFT
+		int y1 = (int) (getPosY()+getAABB().getY()+yOffset-1); //RIGHT
+		
+		int x2 = (int) (x1 + getAABB().getWidth()+2); //TOP
+		int y2 = (int) (y1 + getAABB().getHeight()+2); //BOTTOM
+		
+		if(x1<0)
+			x1=0;
+		if(x2>w.WIDTH-1)
+			x2=w.WIDTH-1;
+		
+		if(y1<0)
+			y1=0;
+		if(y2>w.HEIGHT-1)
+			y2=w.HEIGHT-1;
+		
+		for(int y=y1; y<=y2; y++)
+			for(int x=x1; x<=x2; x++) {
+				if(w.getTileAt(x, y).isSolid() && getCollisionBounds(xOffset, yOffset).intersects(w.getCollisionFromTileAt(x, y))) {
+					return true;
+				}
+			}
+		return false;
 	}
 	
 	public void jump() {
@@ -75,20 +117,37 @@ public class EntityLiving extends Entity { //TODO improve movement REWORK Tile c
 	}
 	
 	private void moveX() {
-		if (momentumX>0) //R
-			if (!Game.getHandler().getWorld().getTileAt((int) (getPosX()+getAABB().getX()+getAABB().getWidth()+(momentumX)/momentumModifier), (int) (getPosY()+AABB.getY())).isSolid() &&
-				!Game.getHandler().getWorld().getTileAt((int) (getPosX()+getAABB().getX()+getAABB().getWidth()+(momentumX)/momentumModifier), (int) (getPosY()+getAABB().getY()+getAABB().getHeight()-0.01)).isSolid() && getPosX()+getAABB().getX()+getAABB().getWidth()+(momentumX)/momentumModifier<Game.getHandler().getWorld().WIDTH-0.1) {
-				pos.setX(getPosX()+(momentumX)/momentumModifier);
-				return;
-			}
+		if(momentumX<0 && getPosX()<0) {
+			momentumX = 0;
+			return;
+		} else if(momentumX>0 && getPosX()>Game.getHandler().getWorld().WIDTH-1) {
+			momentumX = 0;
+			return;
+		}
 		
-		if(momentumX<0) //L
-			if (!Game.getHandler().getWorld().getTileAt((int) (getPosX()+getAABB().getX()+momentumX/momentumModifier), (int) (getPosY()+AABB.getY())).isSolid() &&
-				!Game.getHandler().getWorld().getTileAt((int) (getPosX()+getAABB().getX()+momentumX/momentumModifier), (int) (getPosY()+getAABB().getY()+getAABB().getHeight()-0.01)).isSolid() && getPosX()+momentumX/momentumModifier>0) {
-				pos.setX(getPosX()+momentumX/momentumModifier);
-				return;
+		if (isTileCollision(momentumX/momentumModifier, 0)) {
+			if(momentumX>0) {
+				for(double i=0; i<momentumX; i+=0.01) {
+					if(!isTileCollision((momentumX-i)/momentumModifier, 0)) {
+						pos.setX(getPosX()+(momentumX-i)/momentumModifier);
+						momentumX=0;
+						return;
+					}
+				}
+			} else if(momentumX<0) {
+				for(double i=0; i<-momentumX; i+=0.01) {
+					if(!isTileCollision((momentumX-i)/momentumModifier, 0)) {
+						pos.setX(getPosX()+(momentumX+i)/momentumModifier);
+						momentumX=0;
+						return;
+					}
+				}
 			}
-		momentumX=0;
+			momentumX=0;
+			return;
+		}
+		
+		pos.setX(getPosX()+(momentumX)/momentumModifier);
 	}
 	
 	//SETTER

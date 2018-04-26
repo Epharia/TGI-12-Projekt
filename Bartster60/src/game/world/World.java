@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import game.Game;
 import game.init.Tiles;
 import game.tile.Tile;
+import game.util.math.Area2D;
 
 public class World {
 	
@@ -61,8 +62,6 @@ public class World {
 		world_tiles0[10][14] = Tiles.dirt;
 		world_tiles1[10][14] = Tiles.grass;
 		world_tiles1[10][13] = Tiles.grass_2;
-		
-		world_tiles0[12][11] = Tiles.dirt;
 	}
 	
 	public void render(Graphics g) {
@@ -85,11 +84,34 @@ public class World {
 	}
 	
 	public Tile getTileAt(int x, int y) {
-		return world_tiles0[x][y];
+		if(x>=0 && x<WIDTH && y>=0 && y<HEIGHT)
+			return world_tiles0[x][y];
+		else {
+			System.out.println("ERROR@getTileAt(int x, int y)\n=>return 'Tiles.air'");
+			return Tiles.air;
+		}
+	}
+	
+	public Area2D getCollisionFromTileAt(int x, int y) {
+			Tile tile = world_tiles0[x][y];
+			return new Area2D(tile.getAABB().getX() + x, tile.getAABB().getY() + y, tile.getAABB().getWidth(), tile.getAABB().getHeight());
 	}
 
 	public EntityManager getEntities() {
 		return entities;
 	}
+
+	public Tile[][] getMap() {
+		return world_tiles0;
+	}
 	
+	public Tile[] getMap1D() {
+		Tile[] tiles = new Tile[HEIGHT*WIDTH];
+		for(int y=0; y<HEIGHT; y++) {
+			for(int x=0; x<WIDTH; x++) {
+				tiles[x*HEIGHT+y] = world_tiles0[x][y];
+			}
+		}
+		return tiles;
+	}
 }
