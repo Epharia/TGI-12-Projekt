@@ -1,12 +1,21 @@
 package game.entity;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 import game.Game;
+import game.gfx.animation.Animation;
 import game.world.World;
 
 public class EntityLiving extends Entity {
 
+	//Facing
+	protected enum Facing {EAST, WEST;}
+	protected Facing facing=Facing.EAST;
+	
+	//Animation
+	protected Animation animation;
+	
 	//DEFAULTS
 	public static final double DEFAULT_SPEED = 1;
 	public static final double DEFAULT_JUMP_POWER=4;
@@ -22,10 +31,22 @@ public class EntityLiving extends Entity {
 	
 	@Override
 	public void tick() {
-		moveY();
-		moveX();
+		if(!isEntityCollision(momentumX/momentumModifier, 0))
+			moveX();;
+		
+		if(!isEntityCollision(0, momentumY/momentumModifier))
+			moveY();
+		
+		setFacing();
 	}
 	
+	private void setFacing() {
+		if(momentumX<0)
+			facing=Facing.EAST;
+		else if(momentumX>0)
+			facing=Facing.WEST;
+	}
+
 	public void moveY() {
 		isAirborn = true;
 		
@@ -125,7 +146,7 @@ public class EntityLiving extends Entity {
 			return;
 		}
 		
-		if (isTileCollision(momentumX/momentumModifier, 0)) {
+		if (isTileCollision(momentumX/momentumModifier, 0)) { //TODO improve performance
 			if(momentumX>0) {
 				for(double i=0; i<momentumX; i+=0.01) {
 					if(!isTileCollision((momentumX-i)/momentumModifier, 0)) {
@@ -162,5 +183,13 @@ public class EntityLiving extends Entity {
 	//GETTER
 	public double getCurrentMomentum() {
 		return momentumX;
+	}
+	
+	protected BufferedImage getFrame() {
+		switch(facing) {
+		case EAST: return animation.getFrame();
+		case WEST: return animation.getFrameFliped();
+		}
+		return null;
 	}
 }

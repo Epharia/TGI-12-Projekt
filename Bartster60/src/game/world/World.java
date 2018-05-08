@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import game.Game;
+import game.entity.aggressive.EntityDog;
 import game.init.Tiles;
 import game.tile.Tile;
 import game.util.math.Area2D;
@@ -28,6 +29,7 @@ public class World {
 		world_tiles1 = new Tile[width][height];
 		
 		entities = new EntityManager();
+		entities.add(new EntityDog());
 		
 		setTiles();
 	}

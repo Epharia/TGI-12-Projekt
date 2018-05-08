@@ -37,6 +37,10 @@ public class EntityManager {
 		return entities.get(i);
 	}
 	
+	public ArrayList<Entity> getList() {
+		return entities;
+	}
+	
 	public EntityPlayer getPlayer() {
 		return player;
 	}

@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
+import game.Game;
 import game.util.math.Area2D;
 import game.util.math.Pos2D;
 
@@ -24,6 +25,18 @@ public abstract class Entity {
 	
 	public abstract void render(Graphics g);
 	public abstract void tick();
+	
+	public boolean isEntityCollision(double xOffset, double yOffset) {
+		for (Entity e : Game.getHandler().getWorld().getEntities().getList()) {
+			if (e.equals(this)) {
+				continue;
+			}
+			if (getCollisionBounds(xOffset, yOffset).intersects(e.getCollisionBounds(0, 0))) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	//SETTER
 	public void setHealth(int health) {
