@@ -5,7 +5,7 @@ import game.entity.EntityLiving;
 import game.entity.player.EntityPlayer;
 import game.util.InputHandler;
 
-public class Input {
+public class InputGame {
 	private static boolean jumped;
 	protected static final InputHandler input = Game.getHandler().getInput();
 	private static EntityPlayer player = Game.getHandler().getWorld().getEntities().getPlayer();

@@ -12,9 +12,11 @@ import game.util.math.Area2D;
 
 public class World {
 	
+	//Constants
 	public final int WIDTH, HEIGHT;
 	public final double GRAVITATION;
 	
+	//Attributes
 	protected BufferedImage background;
 	protected Tile[][] world_tiles0; //LAYER 0
 	protected Tile[][] world_tiles1; //LAYER 1 (Overlay)
@@ -66,6 +68,7 @@ public class World {
 		world_tiles1[10][13] = Tiles.grass_2;
 	}
 	
+	//Rendering the World (Tiles & Entities)
 	public void render(Graphics g) {
 		g.drawImage(background, 0, 0, null);
 		for(int i=0; i<HEIGHT; i++) {
@@ -78,14 +81,16 @@ public class World {
 		}
 		entities.render(g);
 	}
-
+	
+	//sets the cameras focus to the Player on every tick and calls the entities tick method
 	public void tick() {
 		entities.tick();
 		Game.getHandler().getCamera().centerOnEntity(entities.getPlayer());
 		Game.getHandler().getCamera().checkLimit();
 	}
 	
-	public Tile getTileAt(int x, int y) {
+	//GETTER
+	public Tile getTileAt(int x, int y) { //Returns the Tile at Index [x][y]
 		if(x>=0 && x<WIDTH && y>=0 && y<HEIGHT)
 			return world_tiles0[x][y];
 		else {
@@ -94,7 +99,7 @@ public class World {
 		}
 	}
 	
-	public Area2D getCollisionFromTileAt(int x, int y) {
+	public Area2D getCollisionFromTileAt(int x, int y) {//Returns the Tiles CollisionBounds at Index [x][y]
 			Tile tile = world_tiles0[x][y];
 			return new Area2D(tile.getAABB().getX() + x, tile.getAABB().getY() + y, tile.getAABB().getWidth(), tile.getAABB().getHeight());
 	}
@@ -107,7 +112,7 @@ public class World {
 		return world_tiles0;
 	}
 	
-	public Tile[] getMap1D() {
+	public Tile[] getMap1D() { //Returns an one Dimensional Array Map
 		Tile[] tiles = new Tile[HEIGHT*WIDTH];
 		for(int y=0; y<HEIGHT; y++) {
 			for(int x=0; x<WIDTH; x++) {

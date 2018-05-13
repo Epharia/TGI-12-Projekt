@@ -2,6 +2,12 @@ package game.util.math;
 
 import java.util.Random;
 
+/* 
+ * |========================================================|
+ * |this Class is used instead of the given Point (2D) Class|
+ * |========================================================|
+ */
+
 public class Pos2D {
 	private double x;
 	private double y;

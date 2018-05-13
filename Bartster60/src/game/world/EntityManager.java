@@ -6,6 +6,12 @@ import java.util.ArrayList;
 import game.entity.Entity;
 import game.entity.player.EntityPlayer;
 
+/* 
+ * |==============================================|
+ * |this Class stores all Entities and manage them|
+ * |==============================================|
+ */
+
 public class EntityManager {
 	
 	protected ArrayList<Entity> entities = new ArrayList<Entity>();
@@ -15,12 +21,14 @@ public class EntityManager {
 		entities.add(player);
 	}
 	
+	//Render all Entities
 	public void render(Graphics g) {
 		for(Entity entity : entities) {
 			entity.render(g);
 		}
 	}
 	
+	//Render all Entities
 	public void tick() {
 		for(Entity entity : entities) {
 			entity.tick();

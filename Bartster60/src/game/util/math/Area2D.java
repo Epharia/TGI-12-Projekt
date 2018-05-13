@@ -2,6 +2,12 @@ package game.util.math;
 
 import java.awt.Rectangle;
 
+/* 
+ * |=======================================================|
+ * |this Class is used instead of the given Rectangle Class|
+ * |=======================================================|
+ */
+
 public class Area2D {
 	
 	protected double x;
@@ -39,19 +45,22 @@ public class Area2D {
         this(pos, scale, scale);
     }
     
+    //checks if Point(x|y) is inside the Area
     public boolean contains(double x, double y) {
     		return x>this.x&&y>this.y&&x<this.x+this.width&&y<this.y+this.height;
     }
     
-
+    //same as previous method but using a position
 	public boolean contains(Pos2D pos) {
 		return contains(pos.getX(), pos.getY());
 	}
 	
+	//checks if an Area is inside this Area
 	public boolean intersects(double x1, double y1, double x2, double y2) {
     	return this.x < x2+x1 && this.x + this.width > x1 && this.y < y2 + y1 && this.y + this.height > y1;
 	}
 	
+	 //same as previous
 	public boolean intersects(Area2D area) {
     	return intersects(area.x, area.y, area.width, area.height);
 	}

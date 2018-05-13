@@ -50,28 +50,28 @@ public class Game implements Runnable {
 	}
 	
 	public void render() {
-		//Setting BufferStrategy
+		//Setting BufferStrategy to TrippleBuffered
 		BufferStrategy bs = handler.getScreen().getBufferStrategy();
 		if (bs == null){
 			handler.getScreen().createBufferStrategy(3);
 			return;
 		}
 		
-		//Render
+		//Rendering
 		Graphics g = bs.getDrawGraphics();
-		g.clearRect(0, 0, handler.getScreen().getWidth(), handler.getScreen().getHeight());
+		g.clearRect(0, 0, handler.getScreen().getWidth(), handler.getScreen().getHeight()); //prevent a flickering Screen by clearing it
 		
 		State.getCurrentState().render(g);
 		
-		g.dispose();
-		bs.show();
+		g.dispose(); //releasing Systems Resources
+		bs.show(); //draws the next Buffer stored to the Screen
 	}
 	
 	public void tick() {
 		State.getCurrentState().tick();
 	}
 	
-	//Thread
+	//Thread (run)
 	@Override
 	public void run() {
 		
@@ -87,16 +87,17 @@ public class Game implements Runnable {
 		double deltaF=0;
 		double deltaT=0;
 		
-		//init
+		//calling init methods
 		System.out.print("Init...");
 		preInit();
 		init();
 		postInit();
 		System.out.println(" done!");
 		
+		//Game loop
 		while(running) {
 			
-			//Timer
+			//Timer (restricting FPS and Ticks)
 			long now = System.nanoTime();
 			deltaF += (now-lastTime) / nsPerFrame;
 			deltaT += (now-lastTime) / nsPerTick;

@@ -5,6 +5,12 @@ import game.gfx.Screen;
 import game.util.InputHandler;
 import game.world.World;
 
+/* 
+ * |============================================================|
+ * |this Class stores Objects and grants access from every class|
+ * |============================================================|
+ */
+
 public class Handler {
 	private Screen screen;
 	private World world;

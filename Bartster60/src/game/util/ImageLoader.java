@@ -7,8 +7,15 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+/* 
+ * |====================================================|
+ * |this Class is used to load Images and transform them|
+ * |====================================================|
+ */
+
 public class ImageLoader {
 	
+	//loading an Image at the given path
 	public static BufferedImage load(String path) {
 		try {
 			if (ImageLoader.class.getResourceAsStream(path) != null)
@@ -21,14 +28,17 @@ public class ImageLoader {
 		return null;
 	}
 	
+	//loading an Image inside an Image(PNG) ==> used for Sheets f.i. storing several textures
 	public static BufferedImage loadSub(String path, int x, int y, int w, int h) {
 		return load(path).getSubimage(x, y, w, h);
 	}
 	
+	//loading an AnimationSheet at the given path with the given amount of frames
 	public static BufferedImage[] loadAnimationSheet(String path, int amountFrames) {
 		return loadAnimationSheet(path, amountFrames, 16, 16);
 	}
 	
+	//loading an AnimationSheet at the given path with the given amount of frames and a different boundary
 	public static BufferedImage[] loadAnimationSheet(String path, int amountFrames, int pixWidth, int pixHeight) {
 		BufferedImage[] tempImgArray = new BufferedImage[amountFrames];
 		for (int i=0; i<tempImgArray.length; i++) {
@@ -37,6 +47,7 @@ public class ImageLoader {
 		return tempImgArray;
 	}
 	
+	//rotating an image by X°
 	public static BufferedImage rotateImage(BufferedImage img, int degrees) {
 		AffineTransform transform = new AffineTransform();
 		transform.rotate(Math.toRadians(degrees), img.getWidth()/2, img.getHeight()/2);
@@ -44,6 +55,7 @@ public class ImageLoader {
 		return img = op.filter(img, null);
 	}
 	
+	//flips an Image
 	public static BufferedImage flipImageX(BufferedImage img) {
 		AffineTransform transform = AffineTransform.getScaleInstance(-1, 1);
 		transform.translate(-img.getWidth(null), 0);
@@ -51,6 +63,7 @@ public class ImageLoader {
 		return img = op.filter(img, null);
 	}
 	
+	//rotating every frame of an AnimationSheet by X°
 	public static BufferedImage[] rotateAnimationSheet(BufferedImage[] sheet, int degrees) {
 		for (int i = 0; i<sheet.length; i++) {
 		BufferedImage img = sheet[i];
@@ -59,6 +72,7 @@ public class ImageLoader {
 		return sheet;
 	}
 	
+	//flips an AnimationSheet
 	public static BufferedImage[] flipAnimationSheetX(BufferedImage[] sheet) {
 		for (int i = 0; i<sheet.length; i++) {
 		BufferedImage img = sheet[i];

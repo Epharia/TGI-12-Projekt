@@ -10,7 +10,7 @@ public class Tile {
 	protected String name;
 	protected BufferedImage texture;
 	protected boolean isSolid;
-	protected Area2D AABB = new Area2D(0,0,1,1);
+	protected Area2D AABB = new Area2D(0,0,1,1); //AxisAlignedBoundingBox
 	
 	
 	public Tile() {}

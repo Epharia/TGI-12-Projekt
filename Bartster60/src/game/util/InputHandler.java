@@ -3,16 +3,22 @@ package game.util;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
-import java.util.List;
 
 import game.gfx.Screen;
+
+/* 
+ * |=================================|
+ * |this Class is checking for inputs|
+ * |=================================|
+ */
 
 public class InputHandler implements KeyListener {
   
 	public InputHandler(Screen screen) {
 	    screen.addKeyListener(this);
 	}
-  
+	
+	//SubClass used to define Keys as their usage
 	public class Key {
 	private int numTimesPressed = 0;
     private boolean pressed = false;
@@ -31,13 +37,14 @@ public class InputHandler implements KeyListener {
     }
 }
   
-	public List<Key> keys = new ArrayList<Key>();
-  
+	public ArrayList<Key> keys = new ArrayList<Key>();
+	
+	//Keys
 	public Key left = new Key();
 	public Key right = new Key();
 	public Key jump = new Key();
 	public Key run = new Key();
-  
+	
 	public void keyPressed(KeyEvent e) {
 		toggleKey(e.getKeyCode(), true);
 	}
@@ -48,7 +55,8 @@ public class InputHandler implements KeyListener {
 
 	public void keyTyped(KeyEvent e) {
 	}
-  
+	
+	//toggles Keys if they're pressed
 	public void toggleKey(int keyCode, boolean isPressed) {
 		if (keyCode == KeyEvent.VK_A || keyCode == KeyEvent.VK_LEFT) {
 			left.toogle(isPressed);

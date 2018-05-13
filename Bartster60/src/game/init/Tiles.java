@@ -3,6 +3,12 @@ package game.init;
 import game.tile.Tile;
 import game.tile.TileAir;
 
+/* 
+ * |========================================|
+ * |this Class is preinitializing every Tile|
+ * |========================================|
+ */
+
 public class Tiles {
 	public static Tile air;
 	public static Tile dirt;
