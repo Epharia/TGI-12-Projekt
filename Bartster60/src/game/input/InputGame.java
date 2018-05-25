@@ -10,7 +10,7 @@ public class InputGame {
 	protected static final InputHandler input = Game.getHandler().getInput();
 	private static EntityPlayer player = Game.getHandler().getWorld().getEntities().getPlayer();
 	
-	public static void tick() { //TODO improve system
+	public static void tick() {
 		if(input.jump.isPressed() && !jumped && !player.isAirborn()) {
 			player.jump();
 			jumped = true;

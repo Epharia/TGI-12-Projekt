@@ -32,11 +32,15 @@ public abstract class Entity {
 				continue;
 			}
 			if (getCollisionBounds(xOffset, yOffset).intersects(e.getCollisionBounds(0, 0))) {
+				onEntityCollision();
 				return true;
 			}
 		}
 		return false;
 	}
+	
+	//called when Entity Collision is detected
+	protected void onEntityCollision() {}
 	
 	//SETTER
 	public void setHealth(int health) {

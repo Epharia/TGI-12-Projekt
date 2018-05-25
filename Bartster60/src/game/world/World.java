@@ -63,6 +63,8 @@ public class World {
 			}
 		}
 		
+		world_tiles0[12][12] = Tiles.dirt;
+		
 		world_tiles0[10][14] = Tiles.dirt;
 		world_tiles1[10][14] = Tiles.grass;
 		world_tiles1[10][13] = Tiles.grass_2;
