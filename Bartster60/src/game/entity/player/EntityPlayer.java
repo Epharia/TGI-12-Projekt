@@ -12,7 +12,7 @@ public class EntityPlayer extends EntityLiving {
 	public EntityPlayer() {
 		this.pos.set(20, 10);
 		this.AABB.setBounds(0.25, 0.125, 0.5, 0.875);
-		this.animation = new Animation(150, ImageLoader.loadAnimationSheet("/assets/textures/creatures/player.png", 1, 16, 16));
+		this.animation = new Animation(150, ImageLoader.loadAnimationSheet("/resource/assets/textures/creatures/player.png", 1, 16, 16));
 	}
 	
 	@Override

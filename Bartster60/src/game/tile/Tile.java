@@ -25,7 +25,7 @@ public class Tile {
 	
 	protected void init(String name, boolean isSolid) {
 		this.name=name;
-		this.texture = ImageLoader.load("/assets/textures/tiles/" + name + ".png");
+		this.texture = ImageLoader.load("/resource/assets/textures/tiles/" + name + ".png");
 		this.isSolid=isSolid;
 	}
 	
