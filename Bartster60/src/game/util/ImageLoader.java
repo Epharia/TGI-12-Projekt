@@ -30,7 +30,10 @@ public class ImageLoader {
 	
 	//loading an Image inside an Image(PNG) ==> used for Sheets f.i. storing several textures
 	public static BufferedImage loadSub(String path, int x, int y, int w, int h) {
-		return load(path).getSubimage(x, y, w, h);
+		if (ImageLoader.class.getResourceAsStream(path) != null)
+			return load(path).getSubimage(x, y, w, h);
+		else System.out.println("'" + path + "' is missing!");
+		return null;
 	}
 	
 	//loading an AnimationSheet at the given path with the given amount of frames
