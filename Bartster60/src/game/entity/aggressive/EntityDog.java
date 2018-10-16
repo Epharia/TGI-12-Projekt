@@ -25,7 +25,6 @@ public class EntityDog extends EntityLiving {
 	@Override
 	public void tick() {
 		super.tick();
-		animation.tick();
 		accelerate(-0.25);
 	}
 }

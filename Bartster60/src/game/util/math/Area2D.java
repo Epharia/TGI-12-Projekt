@@ -60,7 +60,7 @@ public class Area2D {
     	return this.x < x2+x1 && this.x + this.width > x1 && this.y < y2 + y1 && this.y + this.height > y1;
 	}
 	
-	 //same as previous
+	//same as previous
 	public boolean intersects(Area2D area) {
     	return intersects(area.x, area.y, area.width, area.height);
 	}

@@ -28,7 +28,7 @@ public class EntityManager {
 		}
 	}
 	
-	//Render all Entities
+	//Update all Entities
 	public void tick() {
 		for(Entity entity : entities) {
 			entity.tick();

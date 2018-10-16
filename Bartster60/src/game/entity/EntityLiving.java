@@ -18,7 +18,7 @@ public class EntityLiving extends Entity {
 	
 	//DEFAULTS
 	public static final double DEFAULT_SPEED = 1;
-	public static final double DEFAULT_JUMP_POWER=4;
+	public static final double DEFAULT_JUMP_POWER=3.5;
 	
 	//ATTRIBUTES
 	protected double speed = DEFAULT_SPEED;
@@ -31,17 +31,21 @@ public class EntityLiving extends Entity {
 	
 	@Override
 	public void tick() { //FIXME rework collision detection (sweep and prune)
-		if(!isEntityCollision(momentumX/momentumModifier, 0) && !isTileCollision(momentumX/momentumModifier, 0))
+		if(!isEntityCollision() && !isTileCollision())
 			moveX();
 		else momentumX=0;
 		
-		if(!isEntityCollision(0, momentumY/momentumModifier) && !isTileCollision(0, momentumY/momentumModifier))
+		if(!isEntityCollision() && !isTileCollision())
 			moveY();
 		else {
 			isAirborn = false;
 		}
 		
 		setFacing();
+		
+		if (momentumX!=0)
+			animation.tick();
+		else animation.setFrameIndex(0);
 	}
 	
 	private void setFacing() {
@@ -78,11 +82,11 @@ public class EntityLiving extends Entity {
 		pos.setX(getPosX()+(momentumX)/momentumModifier);
 	}
 	
-	private boolean isTileCollision(double xOffset, double yOffset) {
+	private boolean isTileCollision() {
 		World w = Game.getHandler().getWorld();
 		
-		int x1 = (int) (getPosX()+getAABB().getX()+xOffset-1); //LEFT
-		int y1 = (int) (getPosY()+getAABB().getY()+yOffset-1); //RIGHT
+		int x1 = (int) (getPosX()+getAABB().getX()-1); //LEFT
+		int y1 = (int) (getPosY()+getAABB().getY()-1); //RIGHT
 		
 		int x2 = (int) (x1 + getAABB().getWidth()+2); //TOP
 		int y2 = (int) (y1 + getAABB().getHeight()+2); //BOTTOM
@@ -99,7 +103,7 @@ public class EntityLiving extends Entity {
 		
 		for(int y=y1; y<=y2; y++)
 			for(int x=x1; x<=x2; x++) {
-				if(w.getTileAt(x, y).isSolid() && getCollisionBounds(xOffset, yOffset).intersects(w.getCollisionFromTileAt(x, y))) {
+				if(w.getTileAt(x, y).isSolid() && getCollisionBounds().intersects(w.getCollisionFromTileAt(x, y))) {
 					return true;
 				}
 			}

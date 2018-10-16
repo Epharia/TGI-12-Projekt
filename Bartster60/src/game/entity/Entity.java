@@ -26,12 +26,12 @@ public abstract class Entity {
 	public abstract void render(Graphics g);
 	public abstract void tick();
 	
-	public boolean isEntityCollision(double xOffset, double yOffset) {
+	public boolean isEntityCollision() {
 		for (Entity e : Game.getHandler().getWorld().getEntities().getList()) {
 			if (e.equals(this)) {
 				continue;
 			}
-			if (getCollisionBounds(xOffset, yOffset).intersects(e.getCollisionBounds(0, 0))) {
+			if (getCollisionBounds().intersects(e.getCollisionBounds())) {
 				onEntityCollision();
 				return true;
 			}
@@ -88,8 +88,8 @@ public abstract class Entity {
 		return AABB;
 	}
 	
-	public Area2D getCollisionBounds(double xOffset, double yOffset) {
-		return new Area2D((pos.getX() + getAABB().getX()) + xOffset, (pos.getY() + getAABB().getY()) + yOffset, getAABB().getWidth(), getAABB().getHeight());
+	public Area2D getCollisionBounds() {
+		return new Area2D((pos.getX() + getAABB().getX()), (pos.getY() + getAABB().getY()), getAABB().getWidth(), getAABB().getHeight());
 	}
 
 	public BufferedImage getTexture() {

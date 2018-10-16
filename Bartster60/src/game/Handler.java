@@ -19,7 +19,7 @@ public class Handler {
 	
 	public void init() {
 		this.screen = new Screen();
-		this.world = new World(30, 20, 10);
+		this.world = new World(30, 20, 7);
 		this.input = new InputHandler(screen);
 		this.camera = new Camera(0, 0);
 	}
