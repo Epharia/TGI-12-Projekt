@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import game.Game;
+import game.entity.ai.AITasks;
 import game.gfx.animation.Animation;
 import game.world.World;
 
@@ -18,19 +19,24 @@ public class EntityLiving extends Entity {
 	
 	//DEFAULTS
 	public static final double DEFAULT_SPEED = 1;
-	public static final double DEFAULT_JUMP_POWER=3.5;
+	public static final double DEFAULT_JUMP_POWER=4;
 	
 	//ATTRIBUTES
 	protected double speed = DEFAULT_SPEED;
 	protected double jumpPower = DEFAULT_JUMP_POWER;
 	protected double momentumX, momentumY;
-	protected int momentumModifier = 25;
+	protected int momentumModifier = 32;
+	
+	//AI
+	protected final AITasks tasks = new AITasks();;
 	
 	@Override
 	public void render(Graphics g) {}
 	
 	@Override
 	public void tick() { //FIXME rework collision detection (sweep and prune)
+		
+		tasks.tick();
 		
 		moveX();
 		moveY();
@@ -64,7 +70,15 @@ public class EntityLiving extends Entity {
 		}
 		if(b)
 			momentumY=0;
-	}	
+	}
+	
+	private void onTileCollision() {
+		if(momentumX!=0)
+		pos.setX(getPosX()-(momentumX/Math.abs(momentumX)*0.005));
+		if(momentumY!=0)
+		pos.setY(getPosY()-(momentumY/Math.abs(momentumY)*0.005));
+		isAirborn=false;
+	}
 	
 	private void setFacing() {
 		if(momentumX<0)
@@ -128,14 +142,6 @@ public class EntityLiving extends Entity {
 		return false;
 	}
 	
-	private void onTileCollision() {
-		if(momentumX!=0)
-		pos.setX(getPosX()-(momentumX/Math.abs(momentumX)*0.005));
-		if(momentumY!=0)
-		pos.setY(getPosY()-(momentumY/Math.abs(momentumY)*0.005));
-		isAirborn=false;
-	}
-	
 	public void jump() {
 		momentumY = -jumpPower;
 		isAirborn = true;
@@ -167,6 +173,10 @@ public class EntityLiving extends Entity {
 	//GETTER
 	public double getCurrentMomentum() {
 		return momentumX;
+	}
+	
+	public double getSpeed() {
+		return speed;
 	}
 	
 	protected BufferedImage getFrame() {

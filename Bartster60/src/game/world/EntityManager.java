@@ -39,6 +39,18 @@ public class EntityManager {
 	public void add(Entity e) {
 		this.entities.add(e);
 	}
+	
+	public void remove(int index) {
+		entities.remove(index);
+	}
+	
+	public void remove(Entity e) {
+		entities.remove(e);
+	}
+	
+	public void clear() {
+		entities.clear();
+	}
 
 	//GETTER
 	public Entity get(int i) {

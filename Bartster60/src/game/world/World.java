@@ -73,8 +73,20 @@ public class World {
 	//Rendering the World (Tiles & Entities)
 	public void render(Graphics g) {
 		g.drawImage(background, 0, 0, null);
-		for(int i=0; i<HEIGHT; i++) {
-			for(int j=0; j<WIDTH; j++) {
+		
+		//Demonstration
+//		int xMin=(int) Math.max(0, Game.getHandler().getCamera().getxOffset()/Game.TILESCALE+1);
+//		int xMax=(int) Math.min(WIDTH, (Game.getHandler().getCamera().getxOffset()+Game.getHandler().getScreen().getWidth())/Game.TILESCALE);
+//		int yMin=(int) Math.max(0, Game.getHandler().getCamera().getyOffset()/Game.TILESCALE+1);
+//		int yMax=(int) Math.min(HEIGHT, (Game.getHandler().getCamera().getyOffset()+Game.getHandler().getScreen().getHeight())/Game.TILESCALE);
+		
+		int xMin=(int) Math.max(0, Game.getHandler().getCamera().getxOffset()/Game.TILESCALE);
+		int xMax=(int) Math.min(WIDTH, (Game.getHandler().getCamera().getxOffset()+Game.getHandler().getScreen().getWidth())/Game.TILESCALE+1);
+		int yMin=(int) Math.max(0, Game.getHandler().getCamera().getyOffset()/Game.TILESCALE);
+		int yMax=(int) Math.min(HEIGHT, (Game.getHandler().getCamera().getyOffset()+Game.getHandler().getScreen().getHeight())/Game.TILESCALE+1);
+		
+		for(int i=yMin; i<yMax; i++) {
+			for(int j=xMin; j<xMax; j++) {
 				if(world_tiles0[j][i]!=null)
 					g.drawImage(world_tiles0[j][i].getTexture(), (int) (j*Game.TILESCALE-Game.getHandler().getCamera().getxOffset()), (int) (i*Game.TILESCALE-Game.getHandler().getCamera().getyOffset()), Game.TILESCALE, Game.TILESCALE, null);
 				if(world_tiles1[j][i]!=null)

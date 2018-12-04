@@ -21,7 +21,7 @@ public abstract class Entity {
 	protected Pos2D pos = new Pos2D();
 	protected Area2D AABB = new Area2D();
 	
-	protected Random rand = new Random();
+	private Random rand = new Random();
 	
 	public abstract void render(Graphics g);
 	public abstract void tick();
@@ -98,5 +98,9 @@ public abstract class Entity {
 
 	public boolean isAirborn() {
 		return this.isAirborn;
+	}
+	
+	public Random getRNG() {
+		return rand;
 	}
 }

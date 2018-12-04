@@ -2,6 +2,8 @@ package game.util.math;
 
 import java.util.Random;
 
+import game.entity.Entity;
+
 /* 
  * |========================================================|
  * |this Class is used instead of the given Point (2D) Class|
@@ -29,6 +31,14 @@ public class Pos2D {
 		this(0,0);
 	}
 	
+	public static Pos2D generateRandomPosX(Entity entity, double distance) {
+		Pos2D pos = new Pos2D();
+		pos.setX(entity.getPosX() + entity.getRNG().nextDouble()*(distance*2)-distance);
+		pos.setY(entity.getPosY());
+		return pos;
+	}
+	
+	@Deprecated
 	public static Pos2D generateRandomPos(Area2D area, Random rand) {
 		Pos2D pos = new Pos2D();
 		pos.setX((rand.nextDouble()*area.getWidth())+area.getX());
@@ -36,6 +46,7 @@ public class Pos2D {
 		return pos;
 	}
 	
+	@Deprecated
 	public static Pos2D generateRandomPos(double x, double y, double width, double height, Random rand) {
 		return generateRandomPos(new Area2D(x, y, width, height), rand);
 	}

@@ -4,16 +4,20 @@ import java.awt.Graphics;
 
 import game.Game;
 import game.entity.EntityLiving;
+import game.entity.ai.AIWander;
 import game.gfx.animation.Animation;
 import game.util.ImageLoader;
 
 public class EntityDog extends EntityLiving {
 	
 	public EntityDog() {
-		this.pos.set(29, 11);
+		this.pos.set(20, 11);
 		this.AABB.setBounds(0.0625, 0.375, 0.9375, 0.62);
 		animation=new Animation(150, ImageLoader.loadAnimationSheet("/resource/assets/textures/creatures/dog.png", 3));
 		speed=0.5;
+		
+		//Tasks Dog
+		tasks.addTask(0, new AIWander(this));
 	}
 	
 	@Override
@@ -25,6 +29,5 @@ public class EntityDog extends EntityLiving {
 	@Override
 	public void tick() {
 		super.tick();
-//		accelerate(-0.25);
 	}
 }
