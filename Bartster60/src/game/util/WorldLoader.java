@@ -52,6 +52,8 @@ public class WorldLoader {
             
             tempWorld.setMap(map);
             
+            tempWorld.setEntities(loadEntities(mapName));
+            
             try {
 				input.close();
 				reader.close();
@@ -71,7 +73,7 @@ public class WorldLoader {
 		ArrayList<Entity> entities = new ArrayList<Entity>();
 		
 		try {
-			FileInputStream input = new FileInputStream("resource/assets/maps/"+mapName+".json"); 
+			FileInputStream input = new FileInputStream("src/resource/assets/maps/"+mapName+".json"); 
 	        BufferedReader reader = new BufferedReader(new InputStreamReader(input)); 
 	        JsonObject json = gson.fromJson(reader, JsonObject.class);                    
 	        

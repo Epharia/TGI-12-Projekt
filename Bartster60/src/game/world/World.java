@@ -3,9 +3,10 @@ package game.world;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import game.Game;
-import game.entity.aggressive.EntityDog;
+import game.entity.Entity;
 import game.entity.player.EntityPlayer;
 import game.init.Tiles;
 import game.tile.Tile;
@@ -32,7 +33,6 @@ public class World {
 		world_tiles = new Tile[width][height];
 		
 		entities = new EntityManager(new EntityPlayer(SPAWNX, SPAWNY));
-		entities.add(new EntityDog(5, 10));
 		
 		this.background = new BufferedImage(Game.getHandler().getScreen().getWidth(), Game.getHandler().getScreen().getHeight(), BufferedImage.TYPE_INT_RGB);
 		
@@ -110,5 +110,10 @@ public class World {
 			}
 		}
 		return tiles;
+	}
+
+	public void setEntities(ArrayList<Entity> eIn) {
+		for(Entity e : eIn) 
+			this.entities.add(e);;
 	}
 }

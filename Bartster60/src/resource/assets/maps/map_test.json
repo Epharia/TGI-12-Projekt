@@ -4,14 +4,14 @@
 	"height" : 20,
 	"gravitation" : 7,
 	"spawnX" : 5,
-	"spawnY" : 10,
+	"spawnY" : 13,
 	
 	"entities": [
 		{
 			"type" : "dog",
-			"posX":5,
-			"posY":10
-		},
+			"posX":6,
+			"posY":14
+		}
 	],
 	
 	"map" : [
