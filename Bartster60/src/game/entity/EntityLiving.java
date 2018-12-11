@@ -34,7 +34,7 @@ public class EntityLiving extends Entity {
 	public void render(Graphics g) {}
 	
 	@Override
-	public void tick() { //FIXME rework collision detection (sweep and prune)
+	public void tick() {
 		
 		tasks.tick();
 		
@@ -42,17 +42,6 @@ public class EntityLiving extends Entity {
 		moveY();
 		
 		checkTileCollision();
-		
-		
-//		if(!isEntityCollision() && !isTileCollision())
-//			moveX();
-//		else momentumX=0;
-//		
-//		if(!isEntityCollision() && !isTileCollision())
-//			moveY();
-//		else {
-//			isAirborn = false;
-//		}
 		
 		setFacing();
 		
@@ -72,7 +61,7 @@ public class EntityLiving extends Entity {
 			momentumY=0;
 	}
 	
-	private void onTileCollision() {
+	private void onTileCollision() { //FIXME Improve
 		if(momentumX!=0)
 		pos.setX(getPosX()-(momentumX/Math.abs(momentumX)*0.005));
 		if(momentumY!=0)

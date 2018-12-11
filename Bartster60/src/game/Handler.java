@@ -4,6 +4,7 @@ import game.gfx.Camera;
 import game.gfx.Screen;
 import game.util.InputHandler;
 import game.util.MouseHandler;
+import game.util.WorldLoader;
 import game.world.World;
 
 /* 
@@ -21,7 +22,7 @@ public class Handler {
 	
 	public void init() {
 		this.screen = new Screen();
-		this.world = new World(30, 20, 7);
+		this.world = WorldLoader.load("map_test");
 		this.input = new InputHandler(screen);
 		this.mouse = new MouseHandler(screen);
 		this.camera = new Camera(0, 0);

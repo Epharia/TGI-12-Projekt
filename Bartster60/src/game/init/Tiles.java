@@ -2,6 +2,8 @@ package game.init;
 
 import game.tile.Tile;
 import game.tile.TileAir;
+import game.tile.TileGrass;
+import game.tile.TileGrass2;
 
 /* 
  * |========================================|
@@ -18,7 +20,17 @@ public class Tiles {
 	public static void init() {
 		air = new TileAir();
 		dirt = new Tile("dirt");
-		grass = new Tile("grass");
-		grass_2 = new Tile("grass_2");
+		grass = new TileGrass();
+		grass_2 = new TileGrass2();
+	}
+	
+	public static Tile getTileFromID(int id){
+		switch(id) {
+		case 00: return air;
+		case 11: return dirt;
+		case 12: return grass;
+		case 13: return grass_2;
+		default :return null;
+		}
 	}
 }

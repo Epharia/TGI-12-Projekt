@@ -14,10 +14,12 @@ import game.entity.player.EntityPlayer;
 
 public class EntityManager {
 	
-	protected ArrayList<Entity> entities = new ArrayList<Entity>();
-	protected EntityPlayer player = new EntityPlayer();
+	protected ArrayList<Entity> entities;
+	protected EntityPlayer player;
 	
-	public EntityManager() {
+	public EntityManager(EntityPlayer player) {
+		this.player = player;
+		entities = new ArrayList<Entity>();
 		entities.add(player);
 	}
 	

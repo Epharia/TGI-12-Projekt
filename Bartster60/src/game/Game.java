@@ -16,7 +16,7 @@ public class Game implements Runnable {
 	public static final int TILESCALE = 16*3; //texture width * 3
 	
 	public static final String NAME = "Game";
-	public static final String VERSION = "Alpha-0.0.7";
+	public static final String VERSION = "Alpha-0.0.8";
 	
 	//Attributes
 	private boolean running;

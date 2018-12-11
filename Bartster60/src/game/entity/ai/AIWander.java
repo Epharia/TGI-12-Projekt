@@ -15,7 +15,7 @@ public class AIWander extends AIBase { //TODO improve Wander AI (use Path)
     private int tickRate = 10;
 	
     public AIWander(EntityLiving creatureIn) {
-        this(creatureIn, 200);
+        this(creatureIn, 100);
     }
 
     public AIWander(EntityLiving creatureIn, int chance) {
@@ -47,6 +47,11 @@ public class AIWander extends AIBase { //TODO improve Wander AI (use Path)
 	
 	@Override
 	public boolean continueExecuting() {
+		if(pos.getX()<=0 || pos.getX()>=Game.getHandler().getWorld().WIDTH-1) {
+			System.out.println(entity.toString() + " Ended Task: 'Wander', Position was out of Bounds!");
+			return false;
+		}
+		
 		if(reachedX && entity.getCurrentMomentum()==0) {
 			System.out.println(entity.toString() + " Ended task: 'Wander'");
 			return false;

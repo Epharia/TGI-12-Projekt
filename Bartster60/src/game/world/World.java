@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 
 import game.Game;
 import game.entity.aggressive.EntityDog;
+import game.entity.player.EntityPlayer;
 import game.init.Tiles;
 import game.tile.Tile;
 import game.util.math.Area2D;
@@ -13,30 +14,26 @@ import game.util.math.Area2D;
 public class World {
 	
 	//Constants
-	public final int WIDTH, HEIGHT;
+	public final int WIDTH, HEIGHT, SPAWNX, SPAWNY;
 	public final double GRAVITATION;
 	
 	//Attributes
 	protected BufferedImage background;
-	protected Tile[][] world_tiles0; //LAYER 0
-	protected Tile[][] world_tiles1; //LAYER 1 (Overlay)
+	protected Tile[][] world_tiles;
 	
 	protected EntityManager entities;
 	
-	public World(int width, int height, double gravitation) {
+	public World(int width, int height, int spawnX, int spawnY, double gravitation) {
 		this.WIDTH = width;
 		this.HEIGHT = height;
+		this.SPAWNX = spawnX;
+		this.SPAWNY = spawnY;
 		this.GRAVITATION = gravitation;
-		world_tiles0 = new Tile[width][height];
-		world_tiles1 = new Tile[width][height];
+		world_tiles = new Tile[width][height];
 		
-		entities = new EntityManager();
-		entities.add(new EntityDog());
+		entities = new EntityManager(new EntityPlayer(SPAWNX, SPAWNY));
+		entities.add(new EntityDog(5, 10));
 		
-		setTiles();
-	}
-	
-	private void setTiles() { //TEMP
 		this.background = new BufferedImage(Game.getHandler().getScreen().getWidth(), Game.getHandler().getScreen().getHeight(), BufferedImage.TYPE_INT_RGB);
 		
 		for(int i=0; i<Game.getHandler().getScreen().getWidth(); i++) {
@@ -44,30 +41,6 @@ public class World {
 				background.setRGB(i, j, new Color(0,150,190).getRGB());
 			}
 		}
-		
-		for(int i=0; i<HEIGHT; i++) {
-			for(int j=0; j<WIDTH; j++) {
-				world_tiles0[j][i] = Tiles.dirt;
-			}
-		}
-		
-		for(int i=0; i<WIDTH; i++) {
-			if(i==10) continue;
-			world_tiles1[i][15] = Tiles.grass;
-			world_tiles1[i][14] = Tiles.grass_2;
-		}
-		
-		for(int i=0; i<15; i++) {
-			for(int j=0; j<WIDTH; j++) {
-				world_tiles0[j][i] = Tiles.air;
-			}
-		}
-		
-		world_tiles0[12][12] = Tiles.dirt;
-		
-		world_tiles0[10][14] = Tiles.dirt;
-		world_tiles1[10][14] = Tiles.grass;
-		world_tiles1[10][13] = Tiles.grass_2;
 	}
 	
 	//Rendering the World (Tiles & Entities)
@@ -87,10 +60,8 @@ public class World {
 		
 		for(int i=yMin; i<yMax; i++) {
 			for(int j=xMin; j<xMax; j++) {
-				if(world_tiles0[j][i]!=null)
-					g.drawImage(world_tiles0[j][i].getTexture(), (int) (j*Game.TILESCALE-Game.getHandler().getCamera().getxOffset()), (int) (i*Game.TILESCALE-Game.getHandler().getCamera().getyOffset()), Game.TILESCALE, Game.TILESCALE, null);
-				if(world_tiles1[j][i]!=null)
-					g.drawImage(world_tiles1[j][i].getTexture(), (int) (j*Game.TILESCALE-Game.getHandler().getCamera().getxOffset()), (int) (i*Game.TILESCALE-Game.getHandler().getCamera().getyOffset()), Game.TILESCALE, Game.TILESCALE, null);
+				if(world_tiles[j][i]!=null)
+					g.drawImage(world_tiles[j][i].getTexture(), (int) (j*Game.TILESCALE-Game.getHandler().getCamera().getxOffset()), (int) (i*Game.TILESCALE-Game.getHandler().getCamera().getyOffset()), Game.TILESCALE, Game.TILESCALE, null);
 			}
 		}
 		entities.render(g);
@@ -103,10 +74,15 @@ public class World {
 		Game.getHandler().getCamera().checkLimit();
 	}
 	
+	//SETTER
+	public void setMap(Tile[][] map) {
+		this.world_tiles=map;
+	}
+	
 	//GETTER
 	public Tile getTileAt(int x, int y) { //Returns the Tile at Index [x][y]
 		if(x>=0 && x<WIDTH && y>=0 && y<HEIGHT)
-			return world_tiles0[x][y];
+			return world_tiles[x][y];
 		else {
 			System.out.println("ERROR@getTileAt(int x, int y)\n=>return 'Tiles.air'");
 			return Tiles.air;
@@ -114,7 +90,7 @@ public class World {
 	}
 	
 	public Area2D getCollisionFromTileAt(int x, int y) {//Returns the Tiles CollisionBounds at Index [x][y]
-			Tile tile = world_tiles0[x][y];
+			Tile tile = world_tiles[x][y];
 			return new Area2D(tile.getAABB().getX() + x, tile.getAABB().getY() + y, tile.getAABB().getWidth(), tile.getAABB().getHeight());
 	}
 
@@ -123,14 +99,14 @@ public class World {
 	}
 
 	public Tile[][] getMap() {
-		return world_tiles0;
+		return world_tiles;
 	}
 	
 	public Tile[] getMap1D() { //Returns an one Dimensional Array Map
 		Tile[] tiles = new Tile[HEIGHT*WIDTH];
 		for(int y=0; y<HEIGHT; y++) {
 			for(int x=0; x<WIDTH; x++) {
-				tiles[x*HEIGHT+y] = world_tiles0[x][y];
+				tiles[x*HEIGHT+y] = world_tiles[x][y];
 			}
 		}
 		return tiles;
