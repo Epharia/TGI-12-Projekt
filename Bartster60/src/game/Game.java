@@ -13,7 +13,7 @@ public class Game implements Runnable {
 	public static final int FPS = 144;
 	public static final int TPS = 144;
 	
-	public static final int TILESCALE = 16*3; //texture width * 3
+	public static final int TILESCALE = 16*4; //texture width * 4 //ZOOM
 	
 	public static final String NAME = "Game";
 	public static final String VERSION = "Alpha-0.0.8";

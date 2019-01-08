@@ -37,36 +37,15 @@ public class EntityLiving extends Entity {
 	public void tick() {
 		
 		tasks.tick();
+
+		if (momentumX!=0)
+			animation.tick();
+		else animation.setFrameIndex(0);
 		
 		moveX();
 		moveY();
 		
-		checkTileCollision();
-		
 		setFacing();
-		
-		if (momentumX!=0)
-			animation.tick();
-		else animation.setFrameIndex(0);
-	}
-	
-	private void checkTileCollision() {
-		boolean b = false;
-		
-		while(isTileCollision()) {
-			onTileCollision();
-			b=true;
-		}
-		if(b)
-			momentumY=0;
-	}
-	
-	private void onTileCollision() { //FIXME Improve
-		if(momentumX!=0)
-		pos.setX(getPosX()-(momentumX/Math.abs(momentumX)*0.005));
-		if(momentumY!=0)
-		pos.setY(getPosY()-(momentumY/Math.abs(momentumY)*0.005));
-		isAirborn=false;
 	}
 	
 	private void setFacing() {
@@ -76,10 +55,7 @@ public class EntityLiving extends Entity {
 			facing=Facing.WEST;
 	}
 
-	public void moveY() {
-		if (momentumY<Game.getHandler().getWorld().GRAVITATION) //NOTE Maybe Change (f.ex. MAX_GRAVITATION_SPEED)
-			momentumY+=Game.getHandler().getWorld().GRAVITATION/100;
-		
+	public void moveY() {		
 		if(momentumY<0 && getPosY()<0) {
 			momentumY=0;
 			return;
@@ -88,7 +64,27 @@ public class EntityLiving extends Entity {
 			return;
 		}
 		
+		gravitation();
+		
 		pos.setY(getPosY()+momentumY/momentumModifier);
+		
+		boolean b = false;
+		while(isTileCollision()) {
+			if(momentumY!=0)
+				pos.setY(getPosY()-(momentumY/Math.abs(momentumY)*0.005));
+			b=true;
+		}
+		
+		if(b) {
+			if(momentumY>0)
+				isAirborn=false;
+			momentumY=0;
+		}
+	}
+	
+	private void gravitation() {
+		if (momentumY<Game.getHandler().getWorld().GRAVITATION) //NOTE Maybe Change (f.ex. MAX_GRAVITATION_SPEED)
+			momentumY+=Game.getHandler().getWorld().GRAVITATION/100;
 	}
 	
 	private void moveX() {
@@ -101,6 +97,17 @@ public class EntityLiving extends Entity {
 		}
 		
 		pos.setX(getPosX()+(momentumX)/momentumModifier);
+		
+		boolean b = false;
+		while(isTileCollision()) {
+			if(momentumX!=0)
+				pos.setX(getPosX()-(momentumX/Math.abs(momentumX)*0.005));
+			b=true;
+		}
+		
+		if(b) {
+			momentumX=0;
+		}
 	}
 	
 	private boolean isTileCollision() {

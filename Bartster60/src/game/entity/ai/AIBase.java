@@ -1,6 +1,6 @@
 package game.entity.ai;
 
-public abstract class AIBase { //TODO rework AISystem
+public abstract class AIBase {
     
 	public abstract boolean shouldExecute();
 

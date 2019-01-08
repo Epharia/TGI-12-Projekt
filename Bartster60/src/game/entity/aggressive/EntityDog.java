@@ -12,7 +12,7 @@ public class EntityDog extends EntityLiving {
 	
 	public EntityDog(int posX, int posY) {
 		this.pos.set(posX, posY);
-		this.AABB.setBounds(0.0625, 0.375, 0.9375, 0.62);
+		this.AABB.setBounds(0.0625, 0.375, 0.875, 0.62);
 		animation=new Animation(150, ImageLoader.loadAnimationSheet("/resource/assets/textures/creatures/dog.png", 3));
 		speed=0.5;
 		
