@@ -8,7 +8,7 @@ public abstract class AIBase {
         return this.shouldExecute();
     }
 
-    public boolean isInterruptible() {
+    public boolean isInterruptible() { //Unused
         return true;
     }
 

@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 import game.util.ImageLoader;
 
-public class Animation { //TODO Add delay between Periods && Add not repeating Animations (rework AnimationSystem)
+public class Animation {
 	protected int speed;
 	protected int frameIndex;
 	protected long lastTimer;

@@ -2,14 +2,18 @@ package game.entity.ai;
 
 import java.util.ArrayList;
 
+/* 
+ * |===============================================|
+ * |this Class is used to handle tasks for Entities|
+ * |===============================================|
+ */
+
+
 public class AITasks {
 	
-	private ArrayList<EntityAITaskEntry> tasks = new ArrayList<EntityAITaskEntry>();
+	private ArrayList<EntityAITaskEntry> tasks = new ArrayList<EntityAITaskEntry>(); //Stores the tasks
 	
-	public AITasks() {
-	}
-	
-    public void addTask(int priority, AIBase task) {
+    public void addTask(int priority, AIBase task) { //adds a task to the ArrayList 'tasks'
     	tasks.add(new EntityAITaskEntry(priority, task));
     }
     
@@ -28,19 +32,16 @@ public class AITasks {
 		}
 	}
     
-    private boolean canContinue(AITasks.EntityAITaskEntry task)
-    {
+    private boolean canContinue(AITasks.EntityAITaskEntry task) {
         return task.action.continueExecuting();
     }
 	
-    public class EntityAITaskEntry
-    {
+    public class EntityAITaskEntry { //this subclass is used to create tasks
         public final AIBase action;
-        public final int priority;
+        public final int priority; //Unused
         public boolean using;
 
-        public EntityAITaskEntry(int priorityIn, AIBase task)
-        {
+        public EntityAITaskEntry(int priorityIn, AIBase task) {
             this.priority = priorityIn;
             this.action = task;
         }

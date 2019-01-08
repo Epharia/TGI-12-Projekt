@@ -19,7 +19,7 @@ public class EntityLiving extends Entity {
 	
 	//DEFAULTS
 	public static final double DEFAULT_SPEED = 1;
-	public static final double DEFAULT_JUMP_POWER=4;
+	public static final double DEFAULT_JUMP_POWER=3;
 	
 	//ATTRIBUTES
 	protected double speed = DEFAULT_SPEED;
@@ -28,7 +28,7 @@ public class EntityLiving extends Entity {
 	protected int momentumModifier = 32;
 	
 	//AI
-	protected final AITasks tasks = new AITasks();;
+	protected final AITasks tasks = new AITasks();
 	
 	@Override
 	public void render(Graphics g) {}

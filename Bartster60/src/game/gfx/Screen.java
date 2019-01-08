@@ -63,7 +63,7 @@ public class Screen extends Canvas {
 	
 	//SETTER
 	public void hideCursor() {
-		frame.setCursor(frame.getToolkit().createCustomCursor(new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB), new Point(), null));
+		frame.setCursor(frame.getToolkit().createCustomCursor(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB), new Point(), null));
 	}
 	
 	public void showCursor() {

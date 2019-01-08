@@ -9,6 +9,7 @@ public class InputGame {
 	private static boolean jumped;
 	protected static final InputHandler input = Game.getHandler().getInput();
 	private static EntityPlayer player = Game.getHandler().getWorld().getEntities().getPlayer();
+	private static float a = 0.025F;
 	
 	public static void tick() {
 		if(input.jump.isPressed() && !jumped && !player.isAirborn()) {
@@ -18,11 +19,11 @@ public class InputGame {
 			jumped =false;
 		
 		if(input.left.isPressed() && !input.right.isPressed())
-			player.accelerate(-0.05);
+			player.accelerate(-a);
 		else if(player.getCurrentMomentum()<0) player.slowDown();
 		
 		if(input.right.isPressed() && !input.left.isPressed())
-			player.accelerate(0.05);
+			player.accelerate(a);
 		else if(player.getCurrentMomentum()>0) player.slowDown();
 		
 		if(input.run.isPressed()) {

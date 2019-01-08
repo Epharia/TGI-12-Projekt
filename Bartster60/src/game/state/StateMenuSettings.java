@@ -12,40 +12,25 @@ import game.gfx.gui.TextLabel;
 import game.init.States;
 import game.util.ImageLoader;
 
-public class StateMenuMain extends State {
+public class StateMenuSettings extends State {
 	
 	private GUIHandler gui;
 	private BufferedImage background;
 	private Handler handler = Game.getHandler();
 	
-	public StateMenuMain() {
+	public StateMenuSettings() {
 		super();
 		
 		this.background=ImageLoader.load("/resource/assets/textures/gui/background.png");
 		
 		gui = new GUIHandler();
 		
-		gui.add(new TextLabel(10, 10, handler.getScreen().getWidth()-20, 20, (Game.NAME + " @" + Game.VERSION), 20));
+		gui.add(new TextLabel(10, 10, handler.getScreen().getWidth()-20, 64, "Work in Progress", 64));
 		
-		gui.add(new Button(handler.getScreen().getMidX()-256, handler.getScreen().getMidY()-202, 512, 128, "Start") {
+		gui.add(new Button(handler.getScreen().getMidX()-256, handler.getScreen().getMidY()-202, 512, 128, "Back") {
 			@Override
 			public void onClick() {
-				State.setState(States.game);
-				handler.getScreen().hideCursor();
-			}
-		});
-		
-		gui.add(new Button(handler.getScreen().getMidX()-256, handler.getScreen().getMidY()-64, 512, 128, "Settings") {
-			@Override
-			public void onClick() {
-				State.setState(States.settings);
-			}
-		});
-		
-		gui.add(new Button(handler.getScreen().getMidX()-256, handler.getScreen().getMidY()+74, 512, 128, "Exit") {
-			@Override
-			public void onClick() {
-				System.exit(0);
+				State.setState(States.menu);
 			}
 		});
 	}

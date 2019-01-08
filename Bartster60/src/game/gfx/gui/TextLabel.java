@@ -10,7 +10,7 @@ import java.awt.Graphics;
 	private String strText;
 	private Font font;
 	private int fontSize;
-	private boolean centered; //TODO replace centered boolean with Align Enum
+	private boolean centered;
 	
 	public TextLabel(int x, int y, int width, int height, String strText, int fontSize) {
 		this(x, y, width, height, strText, new Font("font", Font.PLAIN, fontSize), fontSize);
@@ -24,7 +24,7 @@ import java.awt.Graphics;
 	}
 
 	@Override
-	public void render(Graphics g) { //TODO
+	public void render(Graphics g) {
 		g.setFont(font);
 		g.setColor(Color.WHITE);;
 		FontMetrics fm = g.getFontMetrics(font);
