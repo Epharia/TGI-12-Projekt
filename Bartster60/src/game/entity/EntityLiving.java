@@ -11,7 +11,7 @@ import game.world.World;
 public class EntityLiving extends Entity {
 
 	//Facing
-	protected enum Facing {EAST, WEST;}
+	public enum Facing {EAST, WEST;}
 	protected Facing facing=Facing.EAST;
 	
 	//Animation
@@ -48,7 +48,7 @@ public class EntityLiving extends Entity {
 		setFacing();
 	}
 	
-	private void setFacing() {
+	public void setFacing() {
 		if(momentumX<0)
 			facing=Facing.EAST;
 		else if(momentumX>0)
@@ -79,7 +79,9 @@ public class EntityLiving extends Entity {
 			if(momentumY>0)
 				isAirborn=false;
 			momentumY=0;
+			return;
 		}
+		isAirborn=true;
 	}
 	
 	private void gravitation() {
@@ -181,5 +183,9 @@ public class EntityLiving extends Entity {
 		case WEST: return animation.getFrameFliped();
 		}
 		return null;
+	}
+	
+	public Facing getFacing() {
+		return facing;
 	}
 }

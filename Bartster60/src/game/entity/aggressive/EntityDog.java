@@ -14,7 +14,8 @@ public class EntityDog extends EntityLiving {
 		this.pos.set(posX, posY);
 		this.AABB.setBounds(0.0625, 0.375, 0.875, 0.62);
 		animation=new Animation(150, ImageLoader.loadAnimationSheet("/resource/assets/textures/creatures/dog.png", 3));
-		speed=0.5;
+		speed=0.4;
+		jumpPower = 2.5;
 		
 		//Tasks Dog
 		tasks.addTask(0, new AIWander(this));

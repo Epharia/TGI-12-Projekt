@@ -2,6 +2,7 @@ package game.entity.ai;
 
 import game.Game;
 import game.entity.EntityLiving;
+import game.entity.EntityLiving.Facing;
 import game.util.math.Pos2D;
 
 public class AIWander extends AIBase { //TODO improve Wander AI (use Path)
@@ -15,7 +16,7 @@ public class AIWander extends AIBase { //TODO improve Wander AI (use Path)
     private int tickRate = 10;
 	
     public AIWander(EntityLiving creatureIn) {
-        this(creatureIn, 100);
+        this(creatureIn, 10);
     }
 
     public AIWander(EntityLiving creatureIn, int chance) {
@@ -67,6 +68,12 @@ public class AIWander extends AIBase { //TODO improve Wander AI (use Path)
 			} else if (round((entity.getPos().getX()*(double)Game.TILESCALE+entity.getAABB().getX()+entity.getAABB().getWidth()/2)/(double)Game.TILESCALE, 1) < round(pos.getX(), 1)) {
 				entity.accelerate(+0.05);
 			} else reachedX=true;
+			
+			entity.setFacing();
+			float offset = (entity.getFacing() == Facing.EAST) ? -0.25F : 1.25F;
+			if(Game.getHandler().getWorld().getTileAt((int) (entity.getPosX()+offset), (int)entity.getPosY()).isSolid()) {
+				entity.jump();
+			}
 		} else entity.slowDown();
 	}
 	
