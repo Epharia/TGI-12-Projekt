@@ -6,7 +6,6 @@ import java.awt.image.BufferedImage;
 import game.Game;
 import game.entity.ai.AITasks;
 import game.gfx.animation.Animation;
-import game.world.World;
 
 public class EntityLiving extends Entity {
 
@@ -19,7 +18,7 @@ public class EntityLiving extends Entity {
 	
 	//DEFAULTS
 	public static final double DEFAULT_SPEED = 1;
-	public static final double DEFAULT_JUMP_POWER=3;
+	public static final double DEFAULT_JUMP_POWER=3.5;
 	
 	//ATTRIBUTES
 	protected double speed = DEFAULT_SPEED;
@@ -44,6 +43,8 @@ public class EntityLiving extends Entity {
 		
 		moveX();
 		moveY();
+		
+		isEntityCollision();
 		
 		setFacing();
 	}
@@ -110,34 +111,6 @@ public class EntityLiving extends Entity {
 		if(b) {
 			momentumX=0;
 		}
-	}
-	
-	private boolean isTileCollision() {
-		World w = Game.getHandler().getWorld();
-		
-		int x1 = (int) (getPosX()+getAABB().getX()-1); //LEFT
-		int y1 = (int) (getPosY()+getAABB().getY()-1); //RIGHT
-		
-		int x2 = (int) (x1 + getAABB().getWidth()+2); //TOP
-		int y2 = (int) (y1 + getAABB().getHeight()+2); //BOTTOM
-		
-		if(x1<0)
-			x1=0;
-		if(x2>w.WIDTH-1)
-			x2=w.WIDTH-1;
-		
-		if(y1<0)
-			y1=0;
-		if(y2>w.HEIGHT-1)
-			y2=w.HEIGHT-1;
-		
-		for(int y=y1; y<=y2; y++)
-			for(int x=x1; x<=x2; x++) {
-				if(w.getTileAt(x, y).isSolid() && getCollisionBounds().intersects(w.getCollisionFromTileAt(x, y))) {
-					return true;
-				}
-			}
-		return false;
 	}
 	
 	public void jump() {

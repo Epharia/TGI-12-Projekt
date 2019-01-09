@@ -38,4 +38,13 @@ public class GUIHandler {
 	public void clear() {
 		guiObjects.clear();
 	}
+	
+	//GETTER
+	public GUIObjBase get(int i) {
+		return guiObjects.get(i);
+	}
+	
+	public ArrayList<GUIObjBase> getList() {
+		return guiObjects;
+	}
 }

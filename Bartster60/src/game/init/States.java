@@ -1,6 +1,7 @@
 package game.init;
 
 import game.state.State;
+import game.state.StateDeathScreen;
 import game.state.StateGame;
 import game.state.StateMenuMain;
 import game.state.StateMenuSettings;
@@ -15,10 +16,12 @@ public class States {
 	public static State game;
 	public static State menu;
 	public static State settings;
+	public static State dead;
 	
 	public static void init() {
 		game = new StateGame();
 		menu = new StateMenuMain();
 		settings = new StateMenuSettings();
+		dead = new StateDeathScreen();
 	}
 }

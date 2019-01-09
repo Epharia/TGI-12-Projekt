@@ -32,8 +32,10 @@ public class EntityManager {
 	
 	//Update all Entities
 	public void tick() {
-		for(Entity entity : entities) {
-			entity.tick();
+		for(int i = 0; i<entities.size(); i++) {
+			if(!entities.get(i).isDead())
+				entities.get(i).tick();
+			else remove(entities.get(i));
 		}
 	}
 	

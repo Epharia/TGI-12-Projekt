@@ -18,6 +18,11 @@ public class StateMenuSettings extends State {
 	private BufferedImage background;
 	private Handler handler = Game.getHandler();
 	
+	private TextLabel label = new TextLabel(10, 10, handler.getScreen().getWidth()-20, 64, "Work in Progress", Color.WHITE, 64);
+	private long lastTimer=System.currentTimeMillis();
+	private long timer=0;
+	private boolean b;
+	
 	public StateMenuSettings() {
 		super();
 		
@@ -25,7 +30,7 @@ public class StateMenuSettings extends State {
 		
 		gui = new GUIHandler();
 		
-		gui.add(new TextLabel(10, 10, handler.getScreen().getWidth()-20, 64, "Work in Progress", 64));
+		gui.add(label);
 		
 		gui.add(new Button(handler.getScreen().getMidX()-256, handler.getScreen().getMidY()-202, 512, 128, "Back") {
 			@Override
@@ -47,5 +52,21 @@ public class StateMenuSettings extends State {
 	@Override
 	public void tick() {
 		gui.tick();
+		
+		long now = System.currentTimeMillis();
+		timer+=now-lastTimer;
+		lastTimer=now;
+		
+		if(timer<500)
+			return;
+		else timer = 0;
+		
+		if(!b) {
+			label.setColor(Color.RED);
+			b=true;
+		} else {
+			label.setColor(Color.WHITE);
+			b=false;
+		}
 	}
 }

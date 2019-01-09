@@ -29,6 +29,10 @@ public class Handler {
 	}
 	
 	
+	public void reloadWorld() {
+		world = WorldLoader.load("map_test");
+	}
+	
 	//GETTER
 	public Screen getScreen() {
 		return screen;

@@ -1,6 +1,7 @@
 package game.gfx.gui;
 
-import java.awt.Font;
+import java.awt.Color;
+//import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
@@ -12,10 +13,14 @@ public class Button extends GUIObjBase {
 	TextLabel text;
 	
 	public Button(int x, int y, int width, int height, String text) {
+		this(x, y, width, height, text, Color.WHITE);
+	}
+	
+	public Button(int x, int y, int width, int height, String text, Color c) {
 		super(x, y, width, height);
-		this.text=new TextLabel(x, y, width, height, text, 75);
+		this.text=new TextLabel(x, y, width, height, text, c, 75);
 		this.text.setCentered(true);
-		this.text.deriveFont(Font.BOLD);
+//		this.text.deriveFont(Font.BOLD);
 		imgArray[0]=ImageLoader.loadSub("/resource/assets/textures/gui/button.png", 0, 0, 64, 16);
 		imgArray[1]=ImageLoader.loadSub("/resource/assets/textures/gui/button.png", 0, 16, 64, 16);
 		
@@ -46,6 +51,10 @@ public class Button extends GUIObjBase {
 	//SETTER
 	public void setText(String text) {
 		this.text.setText(text);
+	}
+	
+	public void setTextColor(Color c) {
+		this.text.setColor(c);
 	}
 	
 }

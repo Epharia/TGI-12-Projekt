@@ -16,7 +16,7 @@ public class Game implements Runnable {
 	public static final int TILESCALE = 16*4; //texture width * 4 //ZOOM
 	
 	public static final String NAME = "Game";
-	public static final String VERSION = "Alpha-0.0.8";
+	public static final String VERSION = "Alpha-0.0.9";
 	
 	//Attributes
 	private boolean running;
@@ -80,9 +80,9 @@ public class Game implements Runnable {
 		double nsPerFrame = 1000000000D/FPS;
 		double nsPerTick = 1000000000D/TPS;
 		
-		long lastTimer = System.currentTimeMillis();
-		int ticks = 0;
-	    int frames = 0;
+//		long lastTimer = System.currentTimeMillis();
+//		int ticks = 0;
+//	    int frames = 0;
 		
 		double deltaF=0;
 		double deltaT=0;
@@ -104,24 +104,24 @@ public class Game implements Runnable {
 			lastTime = now;
 			
 			while(deltaT >= 1) {
-				ticks++;
+//				ticks++;
 				tick();
 				deltaT--;
 			}
 			
 			while(deltaF >= 1) {
-				frames++;
+//				frames++;
 				render();
 				deltaF--;
 			}
 			
 			//FPS/TPS Output
-			if (System.currentTimeMillis() - lastTimer >= 1000) {
-				lastTimer += 1000;
-				System.out.println(frames + "/" + ticks + " Frames/Ticks per Second");
-				frames = 0;
-				ticks = 0;
-			}
+//			if (System.currentTimeMillis() - lastTimer >= 1000) {
+//				lastTimer += 1000;
+//				System.out.println(frames + "/" + ticks + " Frames/Ticks per Second");
+//				frames = 0;
+//				ticks = 0;
+//			}
 		}
 	}
 	

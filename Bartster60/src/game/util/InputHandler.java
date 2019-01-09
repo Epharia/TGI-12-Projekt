@@ -44,6 +44,7 @@ public class InputHandler implements KeyListener {
 	public Key right = new Key();
 	public Key jump = new Key();
 	public Key run = new Key();
+	public Key shoot = new Key();
 	
 	public void keyPressed(KeyEvent e) {
 		toggleKey(e.getKeyCode(), true);
@@ -69,6 +70,9 @@ public class InputHandler implements KeyListener {
 		}
 		if (keyCode == KeyEvent.VK_SHIFT) {
 			run.toogle(isPressed);
+		}
+		if (keyCode == KeyEvent.VK_E) {
+			shoot.toogle(isPressed);
 		}
 	}
 }

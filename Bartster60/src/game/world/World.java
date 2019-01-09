@@ -16,7 +16,7 @@ public class World {
 	
 	//Constants
 	public final int WIDTH, HEIGHT, SPAWNX, SPAWNY;
-	public final double GRAVITATION;
+	public final double GRAVITATION, MAX_G_SPEED; //TEST MAX_G_SPEED
 	
 	//Attributes
 	protected BufferedImage background;
@@ -30,6 +30,7 @@ public class World {
 		this.SPAWNX = spawnX;
 		this.SPAWNY = spawnY;
 		this.GRAVITATION = gravitation;
+		this.MAX_G_SPEED = 0;
 		world_tiles = new Tile[width][height];
 		
 		entities = new EntityManager(new EntityPlayer(SPAWNX, SPAWNY));
@@ -114,6 +115,10 @@ public class World {
 
 	public void setEntities(ArrayList<Entity> eIn) {
 		for(Entity e : eIn) 
+			this.entities.add(e);;
+	}
+	
+	public void addEntity(Entity e) { 
 			this.entities.add(e);;
 	}
 }

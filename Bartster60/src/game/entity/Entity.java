@@ -7,6 +7,7 @@ import java.util.Random;
 import game.Game;
 import game.util.math.Area2D;
 import game.util.math.Pos2D;
+import game.world.World;
 
 public abstract class Entity {
 
@@ -32,7 +33,7 @@ public abstract class Entity {
 				continue;
 			}
 			if (getCollisionBounds().intersects(e.getCollisionBounds())) {
-				onEntityCollision();
+				onEntityCollision(e);
 				return true;
 			}
 		}
@@ -40,7 +41,35 @@ public abstract class Entity {
 	}
 	
 	//called when Entity Collision is detected
-	protected void onEntityCollision() {}
+	protected void onEntityCollision(Entity e) {}
+	
+	protected boolean isTileCollision() {
+		World w = Game.getHandler().getWorld();
+		
+		int x1 = (int) (getPosX()+getAABB().getX()-1); //LEFT
+		int y1 = (int) (getPosY()+getAABB().getY()-1); //RIGHT
+		
+		int x2 = (int) (x1 + getAABB().getWidth()+2); //TOP
+		int y2 = (int) (y1 + getAABB().getHeight()+2); //BOTTOM
+		
+		if(x1<0)
+			x1=0;
+		if(x2>w.WIDTH-1)
+			x2=w.WIDTH-1;
+		
+		if(y1<0)
+			y1=0;
+		if(y2>w.HEIGHT-1)
+			y2=w.HEIGHT-1;
+		
+		for(int y=y1; y<=y2; y++)
+			for(int x=x1; x<=x2; x++) {
+				if(w.getTileAt(x, y).isSolid() && getCollisionBounds().intersects(w.getCollisionFromTileAt(x, y))) {
+					return true;
+				}
+			}
+		return false;
+	}
 	
 	//SETTER
 	public void setHealth(int health) {
