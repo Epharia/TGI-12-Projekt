@@ -17,6 +17,7 @@ public class World {
 	//Constants
 	public final int WIDTH, HEIGHT, SPAWNX, SPAWNY;
 	public final double GRAVITATION, MAX_G_SPEED; //TEST MAX_G_SPEED
+	public final String name;
 	
 	//Attributes
 	protected BufferedImage background;
@@ -24,7 +25,8 @@ public class World {
 	
 	protected EntityManager entities;
 	
-	public World(int width, int height, int spawnX, int spawnY, double gravitation) {
+	public World(String name, int width, int height, int spawnX, int spawnY, double gravitation) {
+		this.name=name;
 		this.WIDTH = width;
 		this.HEIGHT = height;
 		this.SPAWNX = spawnX;
@@ -120,5 +122,9 @@ public class World {
 	
 	public void addEntity(Entity e) { 
 			this.entities.add(e);;
+	}
+
+	public String getName() {
+		return name;
 	}
 }

@@ -10,7 +10,36 @@
 		{
 			"type" : "dog",
 			"posX":15,
-			"posY":12
+			"posY":10
+		},
+		{
+			"type" : "dog",
+			"posX":17,
+			"posY":10
+		},
+		
+		{
+			"type" : "fire",
+			"posX":6,
+			"posY":15
+		},
+		
+		{
+			"type" : "fire",
+			"posX":7,
+			"posY":15
+		},
+		
+		{
+			"type" : "fire",
+			"posX":8,
+			"posY":15
+		},
+		
+		{
+			"type" : "goal",
+			"posX":38,
+			"posY":10
 		}
 	],
 	

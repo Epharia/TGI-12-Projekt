@@ -19,6 +19,8 @@ public class EntityProjectile extends Entity {
 	
 	public static final double DEFAULT_SPEED = 0.1;
 	protected double speed = DEFAULT_SPEED;
+	public static final int DEFAULT_DMG = 1;
+	protected int dmg = DEFAULT_DMG;
 	
 	public EntityProjectile(EntityLiving origin) {
 		this.origin=origin;
@@ -54,6 +56,7 @@ public class EntityProjectile extends Entity {
 	protected void onEntityCollision(Entity e) {
 		if (e == origin)
 			return;
-		e.setDead(true);
+		e.damage(1);
+		this.setDead(true);
 	}
 }

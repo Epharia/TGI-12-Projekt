@@ -38,7 +38,7 @@ public class AITasks {
 	
     public class EntityAITaskEntry { //this subclass is used to create tasks
         public final AIBase action;
-        public final int priority; //Unused
+        public final int priority; //Unused for now
         public boolean using;
 
         public EntityAITaskEntry(int priorityIn, AIBase task) {

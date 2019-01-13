@@ -30,8 +30,10 @@ public class StateDeathScreen extends State {
 	@Override
 	public void render(Graphics g) {
 		g.clearRect(0, 0, handler.getScreen().getWidth(), handler.getScreen().getHeight());
-		g.setColor(Color.BLACK);
+		g.setColor(new Color(0, 0, 0, 200));
+		Game.getHandler().getWorld().render(g);
 		g.fillRect(0, 0, handler.getScreen().getWidth(), handler.getScreen().getHeight());
+		
 		gui.render(g);
 	}
 
@@ -52,6 +54,7 @@ public class StateDeathScreen extends State {
 		label.setPos(handler.getScreen().getMidX()-256, (int) (handler.getScreen().getMidY()-64));
 		
 		Game.getHandler().getScreen().showCursor();
+		Game.getHandler().reloadWorld();
 		State.setState(States.menu);
 	}
 }

@@ -1,6 +1,7 @@
 package game.gfx.gui;
 
 import java.awt.Color;
+import java.awt.Font;
 //import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -51,6 +52,10 @@ public class Button extends GUIObjBase {
 	//SETTER
 	public void setText(String text) {
 		this.text.setText(text);
+	}
+	
+	public void setTextSize(int size) {
+		this.text.setFont(new Font("font", Font.PLAIN, size));;
 	}
 	
 	public void setTextColor(Color c) {

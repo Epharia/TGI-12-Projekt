@@ -13,8 +13,10 @@ import com.google.gson.JsonObject;
 
 import game.entity.Entity;
 import game.entity.aggressive.EntityDog;
+import game.entity.misc.EntityGoal;
 import game.init.Tiles;
 import game.tile.Tile;
+import game.tile.tileentity.TileEntityFire;
 import game.world.World;
 
 public class WorldLoader {
@@ -23,17 +25,18 @@ public class WorldLoader {
     	Gson gson = new Gson();
     	
 		try {
-            FileInputStream input = new FileInputStream("src/resource/assets/maps/"+mapName+".json");
+            FileInputStream input = new FileInputStream("src/resource/assets/maps/"+ mapName +".json");
             BufferedReader reader = new BufferedReader(new InputStreamReader(input)); 
             JsonObject json = gson.fromJson(reader, JsonObject.class);                    
             
+            String name = json.get("mapName").getAsString();
             int mapWidth = json.get("width").getAsInt();
             int mapHeight = json.get("height").getAsInt();
             int spawnX = json.get("spawnX").getAsInt();
             int spawnY = json.get("spawnY").getAsInt();
             int g = json.get("gravitation").getAsInt();
             
-            World tempWorld = new World(mapWidth, mapHeight, spawnX, spawnY, g);
+            World tempWorld = new World(name, mapWidth, mapHeight, spawnX, spawnY, g);
             
             JsonArray mapJson = json.getAsJsonArray("map");
             Tile[][] map = new Tile[mapWidth][mapHeight];
@@ -73,7 +76,7 @@ public class WorldLoader {
 		ArrayList<Entity> entities = new ArrayList<Entity>();
 		
 		try {
-			FileInputStream input = new FileInputStream("src/resource/assets/maps/"+mapName+".json"); 
+			FileInputStream input = new FileInputStream("src/resource/assets/maps/"+ mapName +".json"); 
 	        BufferedReader reader = new BufferedReader(new InputStreamReader(input)); 
 	        JsonObject json = gson.fromJson(reader, JsonObject.class);                    
 	        
@@ -83,8 +86,15 @@ public class WorldLoader {
 	        	Entity entity = null;
 	        	
 	        	switch(jsonObj.get("type").getAsString()) {
-	        	case "dog":entity = new EntityDog(jsonObj.get("posX").getAsInt(), jsonObj.get("posY").getAsInt());
+	        	case "dog": entity = new EntityDog(jsonObj.get("posX").getAsInt(), jsonObj.get("posY").getAsInt());
+	        	break;
+	        	case "fire": entity = new TileEntityFire(jsonObj.get("posX").getAsInt(), jsonObj.get("posY").getAsInt(), "flame");
         		break;
+	        	case "goal": entity = new EntityGoal(jsonObj.get("posX").getAsInt(), jsonObj.get("posY").getAsInt());
+        		break;
+        		default:
+        			System.out.println("Can't load entity '" + jsonObj.get("type").getAsString() + "'");
+        			System.exit(1);
 	        	}
 	        	
 	        	entities.add(entity);

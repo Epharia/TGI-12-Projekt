@@ -17,7 +17,8 @@ public abstract class Entity {
 	//Attributes
 	protected boolean isDead;
 	protected boolean isAirborn;
-	protected int health = DEFAULT_HEALTH;
+	protected int maxHealth = DEFAULT_HEALTH;
+	protected int currentHealth = maxHealth;
 	protected BufferedImage texture;
 	protected Pos2D pos = new Pos2D();
 	protected Area2D AABB = new Area2D();
@@ -71,13 +72,35 @@ public abstract class Entity {
 		return false;
 	}
 	
+	public void damage(int amount) {
+		
+		this.currentHealth -= amount;
+		
+		if(this.currentHealth<=0) {
+			setDead(true);
+		}
+	}
+	
+	public void onDeath() {
+		
+	}
+	
+	public void heal(int health) {
+		this.currentHealth += health;
+	}
+	
+	public void heal() {
+		this.currentHealth = maxHealth;
+	}
+	
 	//SETTER
 	public void setHealth(int health) {
-		this.health = health;
+		this.currentHealth = health;
 	}
 	
 	public void setDead(boolean isDead) {
 		this.isDead = isDead;
+		onDeath();
 	}
 	
 	public void setPos(double x, double y) {
@@ -98,7 +121,11 @@ public abstract class Entity {
 	}
 	
 	public int getHealth() {
-		return this.health;
+		return this.currentHealth;
+	}
+	
+	public int getHealthMax() {
+		return this.maxHealth;
 	}
 	
 	public Pos2D getPos() {

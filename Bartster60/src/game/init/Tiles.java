@@ -30,7 +30,7 @@ public class Tiles {
 		case 11: return dirt;
 		case 12: return grass;
 		case 13: return grass_2;
-		default :return null;
+		default: return air;
 		}
 	}
 }

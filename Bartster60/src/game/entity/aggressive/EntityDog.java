@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 import game.Game;
 import game.entity.EntityLiving;
+import game.entity.ai.AIFollowPlayer;
 import game.entity.ai.AIWander;
 import game.gfx.animation.Animation;
 import game.util.ImageLoader;
@@ -18,6 +19,7 @@ public class EntityDog extends EntityLiving {
 		jumpPower = 2.5;
 		
 		//Tasks Dog
+		tasks.addTask(0, new AIFollowPlayer(this));
 		tasks.addTask(0, new AIWander(this));
 	}
 	

@@ -61,9 +61,9 @@ public class AIWander extends AIBase {
 	@Override
 	public void tick() {
 		if(!reachedX) {
-			if (round((entity.getPos().getX()*(double)Game.TILESCALE+entity.getAABB().getX()+entity.getAABB().getWidth()/2)/(double)Game.TILESCALE, 1) > round(pos.getX(), 1)) {
+			if (round((entity.getPos().getX()+entity.getAABB().getX()+entity.getAABB().getWidth()/2), 1) > round(pos.getX(), 1)) {
 				entity.accelerate(-0.05);
-			} else if (round((entity.getPos().getX()*(double)Game.TILESCALE+entity.getAABB().getX()+entity.getAABB().getWidth()/2)/(double)Game.TILESCALE, 1) < round(pos.getX(), 1)) {
+			} else if (round((entity.getPos().getX()+entity.getAABB().getX()+entity.getAABB().getWidth()/2), 1) < round(pos.getX(), 1)) {
 				entity.accelerate(+0.05);
 			} else reachedX=true;
 			

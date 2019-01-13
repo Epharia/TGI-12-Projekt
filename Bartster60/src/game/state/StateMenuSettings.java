@@ -32,10 +32,17 @@ public class StateMenuSettings extends State {
 		
 		gui.add(label);
 		
-		gui.add(new Button(handler.getScreen().getMidX()-256, handler.getScreen().getMidY()-202, 512, 128, "Back") {
+		gui.add(new Button(handler.getScreen().getMidX()-256, handler.getScreen().getMidY(), 512, 128, "Back") {
 			@Override
 			public void onClick() {
 				State.setState(States.menu);
+			}
+		});
+		
+		gui.add(new Button(handler.getScreen().getMidX()-256, handler.getScreen().getMidY()-138, 512, 128, "Help") {
+			@Override
+			public void onClick() {
+				State.setState(new StateMenuSettingsInput());
 			}
 		});
 	}

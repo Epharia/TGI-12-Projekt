@@ -19,10 +19,12 @@ public class EntityLiving extends Entity {
 	//DEFAULTS
 	public static final double DEFAULT_SPEED = 1;
 	public static final double DEFAULT_JUMP_POWER=3.5;
+	public static final int DEFAULT_DMG= 1;
 	
 	//ATTRIBUTES
 	protected double speed = DEFAULT_SPEED;
 	protected double jumpPower = DEFAULT_JUMP_POWER;
+	protected int dmg = DEFAULT_DMG;
 	protected double momentumX, momentumY;
 	protected int momentumModifier = 32;
 	
@@ -72,7 +74,7 @@ public class EntityLiving extends Entity {
 		boolean b = false;
 		while(isTileCollision()) {
 			if(momentumY!=0)
-				pos.setY(getPosY()-(momentumY/Math.abs(momentumY)*0.005));
+				pos.setY(getPosY()-(momentumY/Math.abs(momentumY)*0.0005));
 			b=true;
 		}
 		
@@ -119,17 +121,31 @@ public class EntityLiving extends Entity {
 	}
 	
 	public void accelerate(double amount) {
-		if(momentumX<speed && momentumX>-speed)
+		if(momentumX<=speed && momentumX>=-speed)
 			momentumX+=amount;
+		else if (momentumX>speed)
+			momentumX=speed;
+		else if (momentumX<-speed)
+			momentumX=-speed;
+	}
+	
+	public void slowDown(float amount) {
+		if(momentumX>=amount)
+			momentumX-=amount;
+		else if (momentumX<=-amount)
+			momentumX+=amount;
+		else
+			momentumX = 0;
 	}
 	
 	public void slowDown() {
-		if(momentumX>=0.025)
-			momentumX-=0.025;
-		else if (momentumX<=-0.025)
-			momentumX+=0.025;
-		else
-			momentumX = 0;
+//		if(momentumX>=0.025)
+//			momentumX-=0.025;
+//		else if (momentumX<=-0.025)
+//			momentumX+=0.025;
+//		else
+//			momentumX = 0;
+		slowDown(0.025F);
 	}
 	
 	//SETTER
@@ -160,5 +176,9 @@ public class EntityLiving extends Entity {
 	
 	public Facing getFacing() {
 		return facing;
+	}
+	
+	public int getDamage() {
+		return dmg;
 	}
 }
