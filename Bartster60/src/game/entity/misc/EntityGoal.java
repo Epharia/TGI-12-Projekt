@@ -30,9 +30,6 @@ public class EntityGoal extends Entity {
 	
 	@Override
 	protected void onEntityCollision(Entity e) {
-		System.out.println("won");
-		Game.getHandler().reloadWorld();
-		Game.getHandler().getScreen().showCursor();
-		State.setState(States.menu);
+		State.setState(States.won);
 	}
 }

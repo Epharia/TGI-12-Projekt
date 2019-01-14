@@ -16,7 +16,7 @@ public class Game implements Runnable {
 	public static final int TILESCALE = 16*3; //texture width * 4 //ZOOM
 	
 	public static final String NAME = "Game";
-	public static final String VERSION = "0.1.0";
+	public static final String VERSION = "0.1.1";
 	
 	//Attributes
 	private boolean running;

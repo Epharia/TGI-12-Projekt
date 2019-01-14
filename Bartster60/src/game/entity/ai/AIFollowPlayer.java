@@ -14,7 +14,7 @@ public class AIFollowPlayer extends AIBase { //TODO AI: follow and attack player
 
     public AIFollowPlayer(EntityLiving creatureIn) {
     	entity = creatureIn;
-    	aov = new Area2D(-4, -4, 8+entity.getAABB().getWidth()+entity.getAABB().getX(), 8+entity.getAABB().getHeight()+entity.getAABB().getY());
+    	aov = new Area2D(-6, -6, 12+entity.getAABB().getWidth()+entity.getAABB().getX(), 12+entity.getAABB().getHeight()+entity.getAABB().getY());
     }
     
 	@Override

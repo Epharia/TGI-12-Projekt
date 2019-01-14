@@ -79,6 +79,12 @@ public abstract class Entity {
 		if(this.currentHealth<=0) {
 			setDead(true);
 		}
+		
+		onDamage();
+	}
+	
+	public void onDamage() {
+		
 	}
 	
 	public void onDeath() {

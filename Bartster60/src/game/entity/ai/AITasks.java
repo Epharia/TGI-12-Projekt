@@ -13,8 +13,8 @@ public class AITasks {
 	
 	private ArrayList<EntityAITaskEntry> tasks = new ArrayList<EntityAITaskEntry>(); //Stores the tasks
 	
-    public void addTask(int priority, AIBase task) { //adds a task to the ArrayList 'tasks'
-    	tasks.add(new EntityAITaskEntry(priority, task));
+    public void addTask(AIBase task) { //adds a task to the ArrayList 'tasks'
+    	tasks.add(new EntityAITaskEntry(task));
     }
     
 	public void tick() {
@@ -38,11 +38,9 @@ public class AITasks {
 	
     public class EntityAITaskEntry { //this subclass is used to create tasks
         public final AIBase action;
-        public final int priority; //Unused for now
         public boolean using;
 
-        public EntityAITaskEntry(int priorityIn, AIBase task) {
-            this.priority = priorityIn;
+        public EntityAITaskEntry(AIBase task) {;
             this.action = task;
         }
     }

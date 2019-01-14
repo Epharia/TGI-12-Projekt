@@ -7,6 +7,7 @@ import game.entity.EntityLiving;
 import game.entity.ai.AIFollowPlayer;
 import game.entity.ai.AIWander;
 import game.gfx.animation.Animation;
+import game.tile.tileentity.TileEntityFire;
 import game.util.ImageLoader;
 
 public class EntityDog extends EntityLiving {
@@ -19,8 +20,8 @@ public class EntityDog extends EntityLiving {
 		jumpPower = 2.5;
 		
 		//Tasks Dog
-		tasks.addTask(0, new AIFollowPlayer(this));
-		tasks.addTask(0, new AIWander(this));
+		tasks.addTask(new AIFollowPlayer(this));
+		tasks.addTask(new AIWander(this));
 	}
 	
 	@Override
@@ -32,5 +33,12 @@ public class EntityDog extends EntityLiving {
 	@Override
 	public void tick() {
 		super.tick();
+	}
+	
+	@Override
+	public void onDeath() {
+		TileEntityFire e = new TileEntityFire(getPosX(), getPosY());
+		e.setLiveTime(3000);
+		Game.getHandler().getWorld().addEntity(e);
 	}
 }

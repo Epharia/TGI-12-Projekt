@@ -57,13 +57,20 @@ public class EntityLiving extends Entity {
 		else if(momentumX>0)
 			facing=Facing.WEST;
 	}
+	
+	public void flipFacing() {
+		if(getFacing() == Facing.EAST)
+			facing = Facing.WEST;
+		else facing = Facing.EAST;
+	}
 
 	public void moveY() {		
 		if(momentumY<0 && getPosY()<0) {
 			momentumY=0;
 			return;
-		} else if(momentumY>0 && getPosY()>Game.getHandler().getWorld().HEIGHT-(getAABB().getHeight()+getAABB().getY()+momentumY/momentumModifier)) {
+		} else if(momentumY>0 && getPosY()>Game.getHandler().getWorld().HEIGHT-(getAABB().getHeight()+getAABB().getY()-1)) {
 			momentumY=0;
+			setDead(true);
 			return;
 		}
 		

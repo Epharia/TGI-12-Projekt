@@ -88,7 +88,7 @@ public class WorldLoader {
 	        	switch(jsonObj.get("type").getAsString()) {
 	        	case "dog": entity = new EntityDog(jsonObj.get("posX").getAsInt(), jsonObj.get("posY").getAsInt());
 	        	break;
-	        	case "fire": entity = new TileEntityFire(jsonObj.get("posX").getAsInt(), jsonObj.get("posY").getAsInt(), "flame");
+	        	case "fire": entity = new TileEntityFire(jsonObj.get("posX").getAsInt(), jsonObj.get("posY").getAsInt());
         		break;
 	        	case "goal": entity = new EntityGoal(jsonObj.get("posX").getAsInt(), jsonObj.get("posY").getAsInt());
         		break;

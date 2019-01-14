@@ -48,10 +48,13 @@ public class EntityPlayer extends EntityLiving {
 			
 		if(cooldown<=0) {
 			damage(entity.getDamage()); //Damage player
-			this.momentumX = (facing == Facing.EAST ? 2 : -2); //Knockback
-			this.momentumY = -2;
-			cooldown =(int) (Game.TPS * 0.5); //half second cooldown before getting damage again
+			cooldown =(int) (Game.TPS * 0.5); //half second cooldown before getting damage by enemies again
 		}
+	}
+	@Override
+	public void onDamage() {
+		this.momentumX = (facing == Facing.EAST ? 2 : -2); //Knockback
+		this.momentumY = -2;
 	}
 	
 	@Override

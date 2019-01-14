@@ -5,6 +5,7 @@ import game.state.StateDeathScreen;
 import game.state.StateGame;
 import game.state.StateMenuMain;
 import game.state.StateMenuSettings;
+import game.state.StateWon;
 
 /* 
  * |=========================================|
@@ -17,11 +18,14 @@ public class States {
 	public static State menu;
 	public static State settings;
 	public static State dead;
+	public static State won;
+	
 	
 	public static void init() {
 		game = new StateGame();
 		menu = new StateMenuMain();
 		settings = new StateMenuSettings();
 		dead = new StateDeathScreen();
-	}
+		won = new StateWon();
+	}	
 }
