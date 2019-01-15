@@ -20,9 +20,11 @@ public class Handler {
 	private MouseHandler mouse;
 	private Camera camera;
 	
+	private int lvlcounter=0;
+	
 	public void init() {
 		this.screen = new Screen();
-		this.world = WorldLoader.load("map_test");
+		resetLevel();
 		this.input = new InputHandler(screen);
 		this.mouse = new MouseHandler(screen);
 		this.camera = new Camera(0, 0);
@@ -30,7 +32,33 @@ public class Handler {
 	
 	
 	public void reloadWorld() {
-		world = WorldLoader.load("map_test");
+		String path = world.getName();
+		loadWorld(path);
+	}
+	
+	public void loadWorld(String path) {
+		world = WorldLoader.load(path);
+	}
+	
+	public void resetLevel() {
+		 lvlcounter=0;
+		 loadNextLevel();
+	}
+	
+	public void loadNextLevel() {
+		String path;
+		
+		switch(lvlcounter) {
+		case 0: path="map_level_0";
+		break;
+		case 1: path="map_level_1";
+		break;
+		default: resetLevel();
+		return;
+		}
+		
+		world = WorldLoader.load(path);
+		lvlcounter++;
 	}
 	
 	//GETTER

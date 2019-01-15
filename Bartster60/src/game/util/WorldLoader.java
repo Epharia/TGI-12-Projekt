@@ -13,6 +13,7 @@ import com.google.gson.JsonObject;
 
 import game.entity.Entity;
 import game.entity.aggressive.EntityDog;
+import game.entity.aggressive.EntityFlameSpawner;
 import game.entity.misc.EntityGoal;
 import game.init.Tiles;
 import game.tile.Tile;
@@ -89,6 +90,8 @@ public class WorldLoader {
 	        	case "dog": entity = new EntityDog(jsonObj.get("posX").getAsInt(), jsonObj.get("posY").getAsInt());
 	        	break;
 	        	case "fire": entity = new TileEntityFire(jsonObj.get("posX").getAsInt(), jsonObj.get("posY").getAsInt());
+        		break;
+	        	case "flame_spawner": entity = new EntityFlameSpawner(jsonObj.get("posX").getAsInt(), jsonObj.get("posY").getAsInt());
         		break;
 	        	case "goal": entity = new EntityGoal(jsonObj.get("posX").getAsInt(), jsonObj.get("posY").getAsInt());
         		break;

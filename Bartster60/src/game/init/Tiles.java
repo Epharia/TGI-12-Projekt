@@ -2,6 +2,7 @@ package game.init;
 
 import game.tile.Tile;
 import game.tile.TileAir;
+import game.tile.TilePlatform;
 
 /* 
  * |========================================|
@@ -11,6 +12,7 @@ import game.tile.TileAir;
 
 public class Tiles {
 	public static Tile air;
+	public static Tile platform;
 	public static Tile dirt;
 	public static Tile grass;
 	public static Tile grass_top_0;
@@ -25,6 +27,7 @@ public class Tiles {
 	
 	public static void init() {
 		air = new TileAir();
+		platform = new TilePlatform();
 		dirt = new Tile("dirt");
 		grass = new Tile("grass");
 		grass_top_0 = new Tile("grass_top_0", false);
@@ -41,6 +44,7 @@ public class Tiles {
 	public static Tile getTileFromID(int id){
 		switch(id) {
 		case 00: return air;
+		case 01: return platform;
 		case 11: return dirt;
 		case 12: return grass;
 		case 13: return (Math.random()<0.7) ? grass_top_0 : grass_top_1;		

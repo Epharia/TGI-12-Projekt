@@ -2,13 +2,12 @@ package game.input;
 
 import game.Game;
 import game.entity.EntityLiving;
-import game.entity.misc.EntityFlame;
 import game.entity.player.EntityPlayer;
 import game.util.InputHandler;
 
 public class InputGame {
 	private static boolean jumped;
-	private static int cooldown, amountCooldown = (int) (Game.TPS*0.5);
+//	private static int cooldown, amountCooldown = (int) (Game.TPS*0.5); //Removed
 	protected static final InputHandler input = Game.getHandler().getInput();
 	private static EntityPlayer player;
 	private static float a = 0.03F;
@@ -21,7 +20,7 @@ public class InputGame {
 		} else if (jumped && !input.jump.isPressed())
 			jumped =false;
 		
-//		if(player.isAirborn())
+//		if(player.isAirborn()) //Removed
 //			a=0.02F;
 //		else a = 0.03F;
 		
@@ -40,14 +39,15 @@ public class InputGame {
 			player.setSpeed(2);
 		} else if(!player.isAirborn() && player.getCurrentMomentum()<=EntityLiving.DEFAULT_SPEED) player.setSpeed(EntityLiving.DEFAULT_SPEED);
 		
-		if(input.shoot.isPressed()) {
-			if(cooldown<=0) {
-				Game.getHandler().getWorld().addEntity(new EntityFlame(player.getPosX(), player.getPosY(), player));
-				cooldown=amountCooldown;
-			}
-		}
-		
-		if(cooldown>0)
-			cooldown--;
+//		if(input.shoot.isPressed()) { //Removed
+//			if(cooldown<=0) {
+//				float offset = (player.getFacing() == Facing.EAST) ? -0.25F : 0.25F;
+//				Game.getHandler().getWorld().addEntity(new EntityFlame(player.getPosX()+offset, player.getPosY(), player));
+//				cooldown=amountCooldown;
+//			}
+//		}
+//		
+//		if(cooldown>0)
+//			cooldown--;
 	}
 }

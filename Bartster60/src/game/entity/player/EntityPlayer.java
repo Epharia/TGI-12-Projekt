@@ -20,6 +20,7 @@ public class EntityPlayer extends EntityLiving {
 		this.pos.set(spawnX, spawnY);
 		this.AABB.setBounds(0.3125, 0, 0.37, 0.99);
 		this.animation = new Animation(150, ImageLoader.loadAnimationSheet("/resource/assets/textures/creatures/player.png", 4, 16, 16));
+		facing = Facing.WEST;
 	}
 	
 	@Override

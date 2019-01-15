@@ -46,6 +46,7 @@ public class StateGame extends State{
 		InputGame.tick();
 		EntityPlayer player = Game.getHandler().getWorld().getEntities().getPlayer();
 		hp.setText((player.getHealth()+"/"+ player.getHealthMax() +"HP"));
+		level.setText(("Map: " + Game.getHandler().getWorld().getName()));
 		gui.tick();
 	}
 

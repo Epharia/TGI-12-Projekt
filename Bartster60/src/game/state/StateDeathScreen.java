@@ -46,7 +46,7 @@ public class StateDeathScreen extends State {
 		if(timer%2==0 && !(label.getBounds().getY()==handler.getScreen().getMidY()-192))
 			label.setPos((int) (label.getBounds().getX()), (int) (label.getBounds().getY()-1));
 		
-		if(timer<432)
+		if(timer<Game.TPS*3)
 			return;
 		else timer = 0;
 		
@@ -54,7 +54,7 @@ public class StateDeathScreen extends State {
 		label.setPos(handler.getScreen().getMidX()-256, (int) (handler.getScreen().getMidY()-64));
 		
 		Game.getHandler().getScreen().showCursor();
-		Game.getHandler().reloadWorld();
+		Game.getHandler().resetLevel();
 		State.setState(States.menu);
 	}
 }

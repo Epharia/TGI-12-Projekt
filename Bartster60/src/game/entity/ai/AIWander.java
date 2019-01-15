@@ -5,7 +5,7 @@ import game.entity.EntityLiving;
 import game.entity.EntityLiving.Facing;
 import game.util.math.Pos2D;
 
-public class AIWander extends AIBase {
+public class AIWander extends AIBase { //NOTE discarded (at least unused for now)
 	
 	protected final EntityLiving entity;
     protected Pos2D pos;

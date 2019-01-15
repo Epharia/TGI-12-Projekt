@@ -33,11 +33,11 @@ public class TileEntityFire extends TileEntity {
 		
 		animation.tick();
 		
-		if(shouldDie && --lifetime<=0)
-			setDead(true);
-		
 		if(cooldown>0)
 			cooldown--;
+		
+		if(shouldDie && --lifetime<=0)
+			setDead(true);
 	}
 	
 	@Override

@@ -41,10 +41,6 @@ public class StateMenuSettingsInput extends State {
 		label4.setCentered(true);
 		gui.add(label4);
 		
-		TextLabel label5 = new TextLabel(10, 384, handler.getScreen().getWidth()-20, 32, "[E] to cast a Fireball", Color.WHITE, 32);
-		label5.setCentered(true);
-		gui.add(label5);
-		
 		Button btn = new Button(32, handler.getScreen().getHeight()-96, 256, 64, "Back") {
 			@Override
 			public void onClick() {

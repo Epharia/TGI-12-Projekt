@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import game.Game;
 import game.entity.EntityLiving;
 import game.entity.ai.AIFollowPlayer;
-import game.entity.ai.AIWander;
 import game.gfx.animation.Animation;
 import game.tile.tileentity.TileEntityFire;
 import game.util.ImageLoader;
@@ -21,7 +20,6 @@ public class EntityDog extends EntityLiving {
 		
 		//Tasks Dog
 		tasks.addTask(new AIFollowPlayer(this));
-		tasks.addTask(new AIWander(this));
 	}
 	
 	@Override

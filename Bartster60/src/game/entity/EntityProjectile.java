@@ -17,7 +17,7 @@ public class EntityProjectile extends Entity {
 	//Animation
 	protected Animation animation;
 	
-	public static final double DEFAULT_SPEED = 0.1;
+	public static final double DEFAULT_SPEED = 0.075;
 	protected double speed = DEFAULT_SPEED;
 	public static final int DEFAULT_DMG = 1;
 	protected int dmg = DEFAULT_DMG;
@@ -38,6 +38,8 @@ public class EntityProjectile extends Entity {
 		pos.setX(pos.getX()+(speed*getDirection()));
 		if(isTileCollision() || getPosX()<-1 || getPosX()>Game.getHandler().getWorld().WIDTH-(getAABB().getWidth()+getAABB().getX()+1))
 			this.setDead(true);
+		
+		animation.tick();
 	}
 	
 	private int getDirection() {

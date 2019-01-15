@@ -16,6 +16,8 @@ public class StateWon extends State {
 	private Handler handler = Game.getHandler();
 	
 	private long timer=0;
+	private int fade=0;
+	
 	private TextLabel label = new TextLabel(handler.getScreen().getMidX()-256, (int) (handler.getScreen().getMidY()-64), 512, 128, "Level Completed!", Color.WHITE, 64);
 	
 	public StateWon() {
@@ -30,10 +32,13 @@ public class StateWon extends State {
 	@Override
 	public void render(Graphics g) {
 		g.clearRect(0, 0, handler.getScreen().getWidth(), handler.getScreen().getHeight());
-		g.setColor(new Color(0, 50, 0, 200));
+			if(fade<255)
+				g.setColor(new Color(0, 0, 0, fade++));
+			else g.setColor(Color.BLACK);
 		Game.getHandler().getWorld().render(g);
 		g.fillRect(0, 0, handler.getScreen().getWidth(), handler.getScreen().getHeight());
 		
+		if(fade > 100)
 		gui.render(g);
 	}
 
@@ -43,18 +48,18 @@ public class StateWon extends State {
 		
 		timer++;
 		
-		if(label.getBounds().getY()!=handler.getScreen().getMidY()-192)
+		if(fade > 100 && label.getBounds().getY()!=handler.getScreen().getMidY()-192)
 			label.setPos((int) (label.getBounds().getX()), (int) (label.getBounds().getY()-1));
 		
-		if(timer<432)
+		if(timer<Game.TPS*3)
 			return;
-		else timer = 0;
 		
+		timer = 0;
+		fade = 0;
 		
 		label.setPos(handler.getScreen().getMidX()-256, (int) (handler.getScreen().getMidY()-64));
 		
-		Game.getHandler().getScreen().showCursor();
-		Game.getHandler().reloadWorld();
-		State.setState(States.menu);
+		Game.getHandler().loadNextLevel();
+		State.setState(States.game);
 	}
 }
