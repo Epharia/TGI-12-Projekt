@@ -16,7 +16,7 @@ public class Game implements Runnable {
 	public static final int TILESCALE = 16*3; //texture width * 4 //ZOOM
 	
 	public static final String NAME = "Game";
-	public static final String VERSION = "0.2.0";
+	public static final String VERSION = "0.2.1";
 	
 	//Attributes
 	private boolean running;
@@ -75,6 +75,13 @@ public class Game implements Runnable {
 	@Override
 	public void run() {
 		
+		//calling init methods
+		System.out.print("Init...");
+		preInit();
+		init();
+		postInit();
+		System.out.println(" done!");
+		
 		//Timer Variables
 		long lastTime = System.nanoTime();
 		double nsPerFrame = 1000000000D/FPS;
@@ -86,13 +93,6 @@ public class Game implements Runnable {
 		
 		double deltaF=0;
 		double deltaT=0;
-		
-		//calling init methods
-		System.out.print("Init...");
-		preInit();
-		init();
-		postInit();
-		System.out.println(" done!");
 		
 		//Game loop
 		while(running) {
